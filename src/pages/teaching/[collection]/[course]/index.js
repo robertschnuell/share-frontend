@@ -40,7 +40,7 @@ const CoursePage = () => {
 
       <section className="grid grid-cols-1 md:grid-cols-10 gap-12 mt-12 w-full max-h-[80vh] md:max-h-[50vh]">
         <div className="md:col-span-3 flex flex-col h-full">
-        <div className="mb-3 font-semibold text-muted flex items-center justify-between">
+          <div className="mb-3 font-semibold text-muted flex items-center justify-between">
             <span>semesterthema</span>
             <button
               type="button"
@@ -56,8 +56,6 @@ const CoursePage = () => {
             <img src="/assets/briefing.png" alt="Briefing" className="max-h-full max-w-full object-contain rounded-xl" />
           </Card>
         </div>
-
-    
 
         <div className="md:col-span-5 flex flex-col h-full">
           <div className="mb-3 font-semibold text-muted flex items-center justify-between">
