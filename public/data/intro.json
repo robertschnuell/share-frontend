@@ -1,0 +1,109 @@
+{
+    "name": "Einführung",
+    "abstract": "Die Einführungsveranstaltung diente dazu, den Studierenden eine sichere Grundlage im Umgang mit 2D- und 3D-CAD-Anwendungen zu vermitteln. Dabei standen das Verständnis grundlegender Prinzipien technischer Visualisierung, die Einordnung von CAD im Kontext von Fertigungstechniken sowie die Bedeutung von Normen und Darstellungsregeln im Mittelpunkt. Durch praxisnahe Beispiele wurde deutlich, dass technische Darstellungen keine eindeutigen Lösungswege vorgeben, sondern Raum für verschiedene Herangehensweisen bieten. Die Veranstaltung schuf damit die Basis, um im weiteren Semester eigenständig digitale Modelle für Visualisierung, Fertigung und Dokumentation zu erstellen und zunehmend komplexe Anwendungen bis hin zu interaktiven und animierten Formaten zu realisieren.",
+    "playable": true,
+    "script": false,
+    "slidesDownloadable": true,
+    "slides": [
+        {
+            "thumbnail": "/assets/slides/intro.001.png",
+            "title": "Introscreen",
+            "id":"0"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.002.png",
+            "title": "Was ist CAD?",
+            "id":"1"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.003.png",
+            "title": "Geschichte der technischen Zeichnung",
+            "id":"2"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.004.png",
+            "title": "2D vs. 3D CAD",
+            "id":"3"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.005.png",
+            "title": "Grundprinzipien der Visualisierung",
+            "id":"4"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.006.png",
+            "title": "Normen und Darstellungsregeln",
+            "id":"5"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.007.png",
+            "title": "Bemaßung und Toleranzen",
+            "id":"6"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.008.png",
+            "title": "Fertigungstechniken im Überblick",
+            "id":"7"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.009.png",
+            "title": "Von der Skizze zum Modell",
+            "id":"8"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.010.png",
+            "title": "Praxisbeispiel: Bauteil zeichnen",
+            "id":"9"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.011.png",
+            "title": "Layer und Strukturen",
+            "id":"10"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.012.png",
+            "title": "Dateiformate und Austausch",
+            "id":"11"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.013.png",
+            "title": "Interaktive Modelle",
+            "id":"12"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.014.png",
+            "title": "Animationen in CAD",
+            "id":"13"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.015.png",
+            "title": "Fehlerquellen und Lösungen",
+            "id":"14"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.016.png",
+            "title": "Teamarbeit im CAD-Prozess",
+            "id":"15"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.017.png",
+            "title": "Dokumentation und Archivierung",
+            "id":"16"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.018.png",
+            "title": "Zukunft von CAD",
+            "id":"17"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.019.png",
+            "title": "Zusammenfassung",
+            "id":"18"
+        },
+        {
+            "thumbnail": "/assets/slides/intro.020.png",
+            "title": "Fragen & Diskussion",
+            "id":"19"
+        }
+    ]
+}

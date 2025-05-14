@@ -5,68 +5,68 @@
     {
       "title": "Einführung",
       "date": "KW39",
-      "id": "cad-0",
+      "id": "intro",
       "image": "/assets/cad-0.png"
     },
     {
       "title": "Werkzeuge/ Fertigungstechniken",
       "date": "KW40",
-      "id": "cad-1"
+      "id": "tools"
     },
     {
       "title": "Normen",
       "date": "KW41",
-      "id": "cad-2"
+      "id": "norms"
     },
     {
       "title": "CAD I",
       "date": "KW42",
-      "id": "cad-3"
+      "id": "cad-1"
     },
     {
       "title": "CAD II",
       "date": "KW43",
-      "id": "cad-4"
+      "id": "cad-2"
     },
     {
       "title": "CAD III",
       "date": "KW44",
-      "id": "cad-5"
+      "id": "cad-3"
     },
     {
       "title": "Visualisierung I",
       "date": "KW45",
-      "id": "cad-6"
+      "id": "vis-1"
     },
     {
       "title": "Visualisierung II",
       "date": "KW46",
-      "id": "cad-7"
+      "id": "vis-2"
     },
     {
       "title": "Rendering",
       "date": "KW47",
-      "id": "cad-8"
+      "id": "rendering"
     },
     {
       "title": "Animationen",
       "date": "KW48",
-      "id": "cad-9"
+      "id": "animation"
     },
     {
       "title": "Pipelineing",
       "date": "KW49",
-      "id": "cad-10"
+      "id": "piplining"
     },
     {
       "title": "Rapid Prototyping 3D Druck / Cnc / Lasercut",
       "date": "KW50",
-      "id": "cad-11"
+      "id": "rp"
     },
     {
       "title": "Interaktive Visualisierungsformen",
       "date": "KW51",
-      "id": "cad-12"
+      "id": "interactive"
     }
   ]
 }
