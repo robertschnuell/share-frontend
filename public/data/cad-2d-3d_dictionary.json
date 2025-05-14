@@ -1,0 +1,694 @@
+{
+  "Skizze (Sketch)": {
+    "description": "Eine zweidimensionale Kontur auf einer Bezugs- oder Arbeitsebene, die als Grundlage für 3D-Features dient.",
+    "tags": ["CAD", "2D", "Parametrisch", "Grundlagen"]
+  },
+  "Skizzengrundebene": {
+    "description": "Die initiale Ebene (XY, XZ oder YZ), auf der erste Skizzen erstellt werden, meist die Default-Ebene im CAD-System.",
+    "tags": ["CAD", "2D", "Arbeitsumgebung"]
+  },
+  "Konstruktions­ebene (Construction Plane)": {
+    "description": "Eine frei definierbare Ebene im Raum, auf der man Skizzen anlegen oder Bezugspunkte festlegen kann.",
+    "tags": ["CAD", "3D", "Arbeitsumgebung", "Referenzgeometrie"]
+  },
+  "Konstruktionsachse (Construction Axis)": {
+    "description": "Eine definierte Linie im Raum, etwa als Achse für Rotationsfeatures oder als Bezug für 3D-Skizzen.",
+    "tags": ["CAD", "3D", "Referenzgeometrie"]
+  },
+  "Arbeitsebene": {
+    "description": "Eine temporäre Ebene, die zur Projektion, zum Aufteilen von Körpern oder als Bezug für Features genutzt wird.",
+    "tags": ["CAD", "3D", "Workflow"]
+  },
+  "Bezugs­ebene (Referenzgeometrie Plane)": {
+    "description": "Ein dauerhaft definiertes Referenzobjekt zur Ausrichtung und Platzierung weiterer Elemente im Modell.",
+    "tags": ["CAD", "3D", "Referenzgeometrie"]
+  },
+  "Referenzgeometriespunkt (Referenzgeometrie Point)": {
+    "description": "Ein definierter Punkt im Raum, der als Bezug für Platzierung, Bemaßung oder Constraints dient.",
+    "tags": ["CAD", "3D", "Referenzgeometrie"]
+  },
+  "Parametrische Modellierung": {
+    "description": "Ein Ansatz, bei dem alle Maße, Abhängigkeiten und Features in einer Feature-Historie gespeichert und bei Änderungen automatisch aktualisiert werden.",
+    "tags": ["CAD", "Parametrisch", "Modellierung"]
+  },
+  "Feature-Historie": {
+    "description": "Die chronologisch geordnete Liste aller angewendeten Operationen (Features), anhand derer das Modell jederzeit zurückverfolgt und bearbeitet werden kann.",
+    "tags": ["CAD", "Workflow", "Modellierung"]
+  },
+  "Volumenkörper (Solid Body)": {
+    "description": "Ein vollständiges 3D-Objekt mit Volumen, das für technische Bauteile verwendet wird und Fertigungstoleranzen berücksichtigt.",
+    "tags": ["CAD", "3D", "Modellierung"]
+  },
+  "Flächenkörper (Surface Body)": {
+    "description": "Ein dünnschaliges 3D-Objekt ohne Volumen, oft in Freiformflächen und NURBS-Modellierung verwendet.",
+    "tags": ["CAD", "3D", "Oberflächen"]
+  },
+  "Drahtgittermodell (Wireframe)": {
+    "description": "Eine reine Linien- und Kantenansicht des Modells, ohne gefüllte Flächen, nützlich für das schnelle Überprüfen der Geometrie.",
+    "tags": ["CAD", "3D", "Darstellung"]
+  },
+  "Extrusion": {
+    "description": "Erstellen eines Volumenkörpers, indem eine 2D-Skizze linear in die dritte Dimension gezogen wird.",
+    "tags": ["CAD", "3D", "Feature"]
+  },
+  "Rotation/Revolution": {
+    "description": "Erzeugen eines Volumenkörpers, indem eine 2D-Skizze um eine definierte Achse rotiert wird.",
+    "tags": ["CAD", "3D", "Feature"]
+  },
+  "Sweep (Führungskurve)": {
+    "description": "Ein Profil wird entlang einer benutzerdefinierten Kurve geführt, um komplexe 3D-Geometrien zu erzeugen.",
+    "tags": ["CAD", "3D", "Feature"]
+  },
+  "Loft": {
+    "description": "Erzeugen eines Körpers durch die Verbindungsflächen zwischen mehreren Querschnittsprofilen.",
+    "tags": ["CAD", "3D", "Feature"]
+  },
+  "Shell (Wandstärke)": {
+    "description": "Ausdünnen eines geschlossenen Volumenkörpers um eine definierte Wandstärke, um ihn hohl zu machen.",
+    "tags": ["CAD", "3D", "Feature"]
+  },
+  "Fillet (Abrundung)": {
+    "description": "Runden von scharfen Kanten oder Innenkanten mit einem definierten Radius für bessere Stressverteilung und Optik.",
+    "tags": ["CAD", "3D", "Feature", "Fertigung"]
+  },
+  "Chamfer (Fase)": {
+    "description": "Abschrägen einer Kante unter einem definierten Winkel oder mit konstanter Breite anstelle einer Rundung.",
+    "tags": ["CAD", "3D", "Feature", "Fertigung"]
+  },
+  "Boolean-Operationen": {
+    "description": "Vereinigung, Differenz und Schnittmenge von Volumenkörpern zur Erzeugung komplexer Geometrien.",
+    "tags": ["CAD", "3D", "Feature"]
+  },
+  "Mustervarianten (Pattern)": {
+    "description": "Reihen- oder kreisförmiges Anordnen eines Features oder Körpers nach einem vorgegebenen Raster oder Radius.",
+    "tags": ["CAD", "3D", "Feature", "Automatisierung"]
+  },
+  "Spiegelung (Mirror)": {
+    "description": "Erzeugen einer gespiegelten Kopie von Features oder Körpern an einer definierten Ebene.",
+    "tags": ["CAD", "3D", "Feature"]
+  },
+  "Abhängigkeiten (Constraints)": {
+    "description": "Beziehungen zwischen Skizzengeometrien (parallel, tangential, symmetrisch, festgelegt) zur Steuerung der Form.",
+    "tags": ["CAD", "2D", "Parametrisch"]
+  },
+  "Bemaßung (Dimension)": {
+    "description": "Definieren von Längen, Winkeln und Positionen in Skizzen und Bauteilen zur exakten Festlegung der Geometrie.",
+    "tags": ["CAD", "Technische Zeichnung", "Parametrisch"]
+  },
+  "Toleranz": {
+    "description": "Angeben der zulässigen Abweichung von nominalen Maßen, um Fertigungsgenauigkeit und Passgenauigkeit zu gewährleisten.",
+    "tags": ["CAD", "Fertigung", "Qualitätssicherung"]
+  },
+  "Stückliste (BOM)": {
+    "description": "Auflistung aller Bauteile und Komponenten einer Baugruppe mit Mengen, Materialien und weiteren Metadaten.",
+    "tags": ["CAD", "Baugruppe", "Dokumentation"]
+  },
+  "Baugruppe (Assembly)": {
+    "description": "Zusammenfügen mehrerer Einzelteile mit Positionierungs- und Verknüpfungsregeln zu einem Gesamtprodukt.",
+    "tags": ["CAD", "3D", "Organisation"]
+  },
+  "Verknüpfungen (Mates)": {
+    "description": "Kinematische oder feste Verbindungen zwischen Einzelteilen in einer Baugruppe, z. B. Bolzen in Loch.",
+    "tags": ["CAD", "Baugruppe", "Mechanik"]
+  },
+  "Fertigungs­zeichnung (Engineering Drawing)": {
+    "description": "2D-Darstellung eines Bauteils oder einer Baugruppe mit allen Maßen, Toleranzen und Werkstoffangaben.",
+    "tags": ["CAD", "Technische Zeichnung", "Dokumentation"]
+  },
+  "NC-Programm (G-Code)": {
+    "description": "Numerische Steuerungscode-Datei (G-Code), die direkt von CNC-Maschinen zum Fräsen oder Drehen verwendet wird.",
+    "tags": ["CAD", "CAM", "Fertigung"]
+  },
+  "CAM-Integration": {
+    "description": "Anbindung des CAD-Modells an Bearbeitungsstrategien und Werkzeugwege für computergestützte Fertigung.",
+    "tags": ["CAD", "CAM", "Workflow"]
+  },
+  "Koordinaten­system": {
+    "description": "Definition von Ursprung und Achsen (X, Y, Z) für die Positionsbestimmung im 3D-Raum.",
+    "tags": ["CAD", "3D", "Referenzgeometrie"]
+  },
+  "Konzentrisch (Concentric)": {
+    "description": "Zwei oder mehr Zylinder- oder Lochachsen teilen denselben Mittelpunkt, sodass sie perfekt übereinanderliegen.",
+    "tags": ["CAD", "Mechanik", "Beziehung", "Fusion360"]
+  },
+  "Achsen­konzentrisch (Co-Axial)": {
+    "description": "Zwei Bauteile oder Features sind so ausgerichtet, dass ihre Rotationsachsen identisch liegen.",
+    "tags": ["CAD", "Mechanik", "Beziehung", "Fusion360"]
+  },
+  "Exzentrisch (Eccentric)": {
+    "description": "Eine Bohrung oder Achse ist absichtlich um einen definierten Versatz vom Mittelpunkt eines Bauteils verschoben.",
+    "tags": ["CAD", "Mechanik", "Feature", "Fusion360"]
+  },
+  "Tangent (Tangential)": {
+    "description": "Eine Linie, Fläche oder Kurve berührt eine andere Kurve oder Fläche an genau einem Punkt ohne Durchdringung.",
+    "tags": ["CAD", "Mechanik", "Beziehung", "Fusion360"]
+  },
+  "Festlager (Fixed Joint)": {
+    "description": "Kinematische Verbindung, die keine Relativbewegung zwischen den verbundenen Bauteilen zulässt.",
+    "tags": ["CAD", "Mechanik", "Baugruppe", "Fusion360"]
+  },
+  "Loslager (Floating Joint)": {
+    "description": "Verbindung, die Translation in einer Ebene erlaubt, aber Rotation verhindert (z. B. wenn Toleranzen ausgeglichen werden sollen).",
+    "tags": ["CAD", "Mechanik", "Baugruppe", "Fusion360"]
+  },
+  "Revolute Joint (Drehgelenk)": {
+    "description": "Kinematische Verbindung, die nur Rotation um eine feste Achse erlaubt.",
+    "tags": ["CAD", "Mechanik", "Baugruppe", "Fusion360"]
+  },
+  "Prismenführung (Prismatic Joint)": {
+    "description": "Kinematische Verbindung, die nur Linearbewegung entlang einer Achse erlaubt.",
+    "tags": ["CAD", "Mechanik", "Baugruppe", "Fusion360"]
+  },
+  "Kugelgelenk (Ball Joint)": {
+    "description": "Verbindung, die Rotation um mehrere Achsen erlaubt, ähnlich einem Kugelkopf in einer Buchse.",
+    "tags": ["CAD", "Mechanik", "Baugruppe", "Fusion360"]
+  },
+  "Degrees of Freedom (Freiheitsgrade)": {
+    "description": "Anzahl der unabhängigen Bewegungsrichtungen (Translation und Rotation), die ein Konstruktionssystem zulässt.",
+    "tags": ["CAD", "Mechanik", "Analyse", "Fusion360"]
+  },
+  "Kinematische Kopplung (Kinematic Pair)": {
+    "description": "Paarung zweier Flächen oder Körper, die eine definierte Relativbewegung ermöglichen (z. B. Scharnier, Gleitschiene).",
+    "tags": ["CAD", "Mechanik", "Baugruppe", "Fusion360"]
+  },
+  "Zahnradsimulation": {
+    "description": "Analyse der Verzahnung zweier Zahnräder, inklusive Übersetzungsverhältnis, Flankenzug und Eingriffswinkel.",
+    "tags": ["CAD", "Mechanik", "Simulation", "Fusion360"]
+  },
+  "Massen­eigenschaften (Mass Properties)": {
+    "description": "Berechnung von Masse, Schwerpunkt, Trägheitstensor und Volumen eines 3D-Modells.",
+    "tags": ["CAD", "Mechanik", "Analyse", "Fusion360"]
+  },
+  "Schwerpunkt (Center of Mass)": {
+    "description": "Punkt, an dem die gesamte Masse eines Körpers so wirkt, als wäre sie dort konzentriert.",
+    "tags": ["CAD", "Mechanik", "Analyse", "Fusion360"]
+  },
+  "Trägheitsmoment (Moment of Inertia)": {
+    "description": "Maß für die Widerstandsfähigkeit eines Körpers gegen Drehbewegungen um eine Achse.",
+    "tags": ["CAD", "Mechanik", "Analyse", "Fusion360"]
+  },
+  "Feder-Dämpfer-Simulation": {
+    "description": "Nichtlineare Simulation mechanischer Elemente mit Feder- und Dämpfungseigenschaften zur Bewegungsanalyse.",
+    "tags": ["CAD", "Mechanik", "Simulation", "Fusion360"]
+  },
+  "Kraft­fluss (Load Path)": {
+    "description": "Theoretische Linie oder Kanal, entlang dem Kräfte innerhalb eines Bauteils oder einer Baugruppe übertragen werden.",
+    "tags": ["CAD", "Mechanik", "Analyse", "Fusion360"]
+  },
+  "Lastfälle (Load Cases)": {
+    "description": "Vordefinierte Kombinationen von Kräften, Momenten und Randbedingungen für statische oder dynamische Simulationen.",
+    "tags": ["CAD", "Mechanik", "Simulation", "Fusion360"]
+  },
+  "Kontaktbedingung (Contact Condition)": {
+    "description": "Definition, wie zwei oder mehr Körper in einer Simulation interagieren (verklebt, reibend, reibungslos).",
+    "tags": ["CAD", "Mechanik", "Simulation", "Fusion360"]
+  },
+  "Freiform­flächendesign (Freeform Surface)": {
+    "description": "Erstellen und Anpassen komplexer, gekrümmter Flächen mithilfe von Splines oder T-Splines für organische Formen.",
+    "tags": ["CAD", "Mechanik", "Design", "Fusion360"]
+  },
+  "Polygon-Modellierung (Polygon Modeling)": {
+    "description": "Erstellung und Editieren von 3D-Objekten durch direkte Manipulation von Vertices, Kanten und Polygonflächen im Polygon-Modus.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Mesh"]
+  },
+  "Vertex (Punkt)": {
+    "description": "Ein einzelner Eckpunkt eines Polygonnetzes, der gemeinsam mit anderen Vertices die Geometrie definiert.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Mesh"]
+  },
+  "Edge (Kante)": {
+    "description": "Verbindungslinie zwischen zwei Vertices, die die Kontur eines Polygonnetzsegments bildet.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Mesh"]
+  },
+  "Face (Fläche)": {
+    "description": "Dreieckiges oder viereckiges Polygon, das aus drei oder vier Vertices gebildet wird und die Oberfläche eines Meshes darstellt.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Mesh"]
+  },
+  "Extrude": {
+    "description": "Erzeugen neuer Flächen, indem ausgewählte Polygone entlang ihrer Normalen herausgezogen werden.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Feature"]
+  },
+  "Bevel (Abrunden)": {
+    "description": "Abschrägen oder Abrunden von Kanten und Ecken durch Hinzufügen zusätzlicher Geometrie für weiche Übergänge.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Feature"]
+  },
+  "Knife (Schnittwerkzeug)": {
+    "description": "Schneidet Geometrie entlang einer Linie oder Fläche, um neue Vertices, Kanten und Polygone einzufügen.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Feature"]
+  },
+  "Subdivision Surface": {
+    "description": "Glättet ein niedrig aufgelöstes Polygonnetz durch Unterteilung und Durchschnittsbildung, um organische Formen zu erzeugen.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Mesh"]
+  },
+  "Spline": {
+    "description": "Freiformkurve, die als Basis für Pfad-Modeling, Loft-Objekte oder Sweep-Generatoren verwendet wird.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Spline"]
+  },
+  "Loft(Cinema4D)": {
+    "description": "Erstellt eine Fläche oder einen Körper, indem mehrere Splines in einer definierten Reihenfolge verbunden werden.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Feature"]
+  },
+  "Sweep (Sweep-NURBS)": {
+    "description": "Führt ein Profil-Spline entlang eines Pfad-Spline, um Röhren, Kabel oder komplexe Formen zu modellieren.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Feature"]
+  },
+  "Lathe (Lathe-NURBS)": {
+    "description": "Erzeugt ein revolviertes Objekt, indem ein Profil-Spline um eine Achse rotiert wird.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Feature"]
+  },
+  "Metaballs": {
+    "description": "Medienartige Oberflächen, die automatisch verschmelzen, wenn sich mehrere Objekte nahekommen, ideal für organische Formen.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Organic"]
+  },
+  "Null-Objekt (Null Object)": {
+    "description": "Leeres Hüllobjekt zur Gruppierung und Hierarchieorganisation von Objekten im Objekt-Manager.",
+    "tags": ["Visualisierung", "Cinema4D", "Workflow", "Organisation"]
+  },
+  "Achsen-Zentrierung (Axis Center)": {
+    "description": "Festlegung des Pivot-Punktes eines Objekts, der Dreh- und Skalierursprungsort definiert.",
+    "tags": ["Visualisierung", "Cinema4D", "Workflow", "Transform"]
+  },
+  "Deformer": {
+    "description": "Nicht-destruktive Werkzeuge wie Bend, Twist oder Melt, die Objekte dynamisch verformen ohne statische Geometrieänderung.",
+    "tags": ["Visualisierung", "Cinema4D", "Modellierung", "Animation"]
+  },
+  "MoGraph Cloner": {
+    "description": "Generator, der Objekte in vordefinierten Mustern (Raster, Kreis, Objektverteilung) vervielfältigt.",
+    "tags": ["Visualisierung", "Cinema4D", "MoGraph", "Parametrisch"]
+  },
+  "Effector": {
+    "description": "Komponente, die Klone oder Deformer parametrisch beeinflusst (Position, Rotation, Skalierung, Farbe).",
+    "tags": ["Visualisierung", "Cinema4D", "MoGraph", "Parametrisch"]
+  },
+  "UV-Unwrapping": {
+    "description": "Aufklappen der Oberfläche eines Meshes auf einer 2D-Ebene, um Texturen präzise anzulegen.",
+    "tags": ["Visualisierung", "Cinema4D", "Texturierung", "Workflow"]
+  },
+  "Material-Tag": {
+    "description": "Verknüpft ein Material mit einem Objekt und steuert, welche Projektion (UVW, Cubic, Spherical) verwendet wird.",
+    "tags": ["Visualisierung", "Cinema4D", "Texturierung", "Workflow"]
+  },
+  "Phong-Tag": {
+    "description": "Regelt die Glättung und Kantenglättung von Polygonflächen basierend auf einem maximalen Winkelwert.",
+    "tags": ["Visualisierung", "Cinema4D", "Darstellung", "Shading"]
+  },
+  "Shader": {
+    "description": "Prozedurales oder bildbasiertes Element im Material, das Oberflächeneigenschaften wie Farbe, Bump oder Reflektion definiert.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Texturierung"]
+  },
+  "PBR-Material (Physical Material)": {
+    "description": "Physikalisch basiertes Materialsystem für realistische Licht- und Oberflächeninteraktion mit Parametern wie Albedo, Roughness und Metalness.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Workflow"]
+  },
+  "Beleuchtung (Lighting)": {
+    "description": "Simulierte Lichtquellen (Omni, Spot, Area, IES) zur Erzeugung von Schatten, Reflexionen und Stimmung in der Szene.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Workflow"]
+  },
+  "HDRI": {
+    "description": "High Dynamic Range Image als Umgebungslichtquelle für realistische Reflexionen und Ausleuchtung.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Workflow"]
+  },
+  "Physikalischer Renderer (Physical Renderer)": {
+    "description": "Render-Engine in Cinema 4D für Photo-realismus mit globaler Beleuchtung, Tiefenschärfe und Bewegungsschärfe.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Engine"]
+  },
+  "Multi-Pass-Rendering": {
+    "description": "Ausgabe verschiedener Bildkanäle (Diffuse, Specular, Z-Depth) für die Feinabstimmung in der Compositing-Phase.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Workflow"]
+  },
+  "Compositing-Tag": {
+    "description": "Steuert, wie ein Objekt im finalen Renderkanal zusammen mit anderen Elementen gerendert wird (Maske, ID, Sichtbarkeit).",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Workflow"]
+  },
+  "Keyframe": {
+    "description": "Ein definierter Zeitpunkt in der Zeitleiste, an dem ein Parameter wie Position, Rotation oder Materialwert festgelegt wird.",
+    "tags": ["Visualisierung", "Cinema4D", "Animation", "Workflow"]
+  },
+  "Timeline": {
+    "description": "Zeitliche Steuerung und Übersicht aller Keyframes, Takes und Animationsebenen in der Szene.",
+    "tags": ["Visualisierung", "Cinema4D", "Animation", "Workflow"]
+  },
+  "Camera (Kamera)": {
+    "description": "Virtuelles Abbild einer realen Kamera im 3D-Raum mit Parametern wie Brennweite, Blende und Sensorgröße.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Workflow"]
+  },
+  "Explosionsgrafik (Explosion Graphic)": {
+    "description": "Eine Visualisierungstechnik, bei der ein komplexes Modell in seine Einzelteile zerlegt und räumlich auseinandergezogen dargestellt wird, um Aufbau und Zusammenhänge zu verdeutlichen.",
+    "tags": ["Visualisierung", "Cinema4D", "Exploded View", "Technik"]
+  },
+  "Sketch & Toon": {
+    "description": "Ein non-photorealistisches Renderer-Modul für stilisierte Linien- und Flächenzeichnung, das handgezeichneten Look durch Kantenerkennung und Flächenfüllungen erzeugt.",
+    "tags": ["Visualisierung", "Cinema4D", "Non-Photorealistic Rendering", "Stylisierung"]
+  },
+  "Material (Shader)": {
+    "description": "Definition der Oberflächeneigenschaften eines Objekts (Farbe, Reflektion, Transparenz, Rauheit etc.), die im Rendering das Lichtverhalten steuern.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Textur"]
+  },
+  "Photorealistisches Rendering (Physical Rendering)": {
+    "description": "Renderprozess, der physikalisch korrekte Lichtberechnung, global illumination, korrekte Schatten und Kamerasimulation nutzt, um ein Bild wie ein Foto wirken zu lassen.",
+    "tags": ["Visualisierung", "Cinema4D", "Rendering", "Photo-Realism"]
+  },
+  "Ambient Occlusion": {
+    "description": "Berechnung der Abschattung in Ecken und Spalten durch registrierte Umgebungsverdeckung, um Tiefe und Detailreichtum zu erzeugen.",
+    "tags": ["Rendering", "Cinema4D", "Photorealismus", "Shader"]
+  },
+  "Global Illumination": {
+    "description": "Simuliert indirektes Licht, das von Oberflächen reflektiert wird, um realistischere Beleuchtung und Farbbalance zu erzeugen.",
+    "tags": ["Rendering", "Cinema4D", "Photorealismus", "Licht"]
+  },
+  "Caustics": {
+    "description": "Lichtkonzentration durch Brechung oder Reflexion (z. B. Lichtflecken unter einem Glas), die gezielt berechnet wird.",
+    "tags": ["Rendering", "Cinema4D", "Photorealismus", "Effekt"]
+  },
+  "Depth of Field (DoF)": {
+    "description": "Simuliert die Unschärfe vor und hinter dem Fokuspunkt einer Kamera für realistische Schärfentiefe.",
+    "tags": ["Rendering", "Cinema4D", "Kamera", "Effekt"]
+  },
+  "Motion Blur": {
+    "description": "Erzeugt Bewegungsunschärfe für sich schnell bewegende Objekte oder Kamerabewegungen.",
+    "tags": ["Rendering", "Cinema4D", "Kamera", "Effekt"]
+  },
+  "Bump Map": {
+    "description": "Graustufen-Textur, die Unebenheiten in der Oberfläche nur optisch simuliert, ohne Geometrie zu verändern.",
+    "tags": ["Texturierung", "Cinema4D", "Shader"]
+  },
+  "Normal Map": {
+    "description": "RGB-Textur, die exakte Flächennormalen verändert, um feinste Details und Lichtspiel realistischer abzubilden.",
+    "tags": ["Texturierung", "Cinema4D", "Shader"]
+  },
+  "Displacement Map": {
+    "description": "Graustufen-Textur, die die tatsächliche Geometrie eines Meshes verschiebt und so echte Reliefstrukturen erzeugt.",
+    "tags": ["Texturierung", "Cinema4D", "Modellierung"]
+  },
+  "Specular Map": {
+    "description": "Graustufen- oder Farb-Textur, die definiert, wo und wie stark ein Material glänzt.",
+    "tags": ["Texturierung", "Cinema4D", "Shader"]
+  },
+  "Reflection Map": {
+    "description": "Umgebungsabbildung (HDRI oder Cube-Map) für Spiegelungen und Umgebungsreflektionen auf Oberflächen.",
+    "tags": ["Texturierung", "Cinema4D", "Shader"]
+  },
+  "Refraction": {
+    "description": "Simuliert Lichtbrechung in transparenten Materialien anhand des Brechungsindex.",
+    "tags": ["Rendering", "Cinema4D", "Shader"]
+  },
+  "Render Pass": {
+    "description": "Einzelner Kanal (z. B. Diffuse, Specular, Z-Depth), der separat gerendert wird, um in der Nachbearbeitung fein zu justieren.",
+    "tags": ["Rendering", "Cinema4D", "Workflow", "Multi-Pass"]
+  },
+  "Multi-Pass Rendering": {
+    "description": "Rendering in mehreren Passes, um einzelne Bildkomponenten getrennt zu exportieren und später zu kombinieren.",
+    "tags": ["Rendering", "Cinema4D", "Workflow"]
+  },
+  "Compositing": {
+    "description": "Zusammenführung und Farbkorrektur der verschiedenen Render-Passes in einer Bildbearbeitungs- oder Compositing-Software.",
+    "tags": ["Postproduktion", "Cinema4D", "Workflow"]
+  },
+  "XPresso": {
+    "description": "Visuelle Skriptsprache in Cinema 4D, mit der Parameter dynamisch verknüpft und automatisierte Abläufe erstellt werden.",
+    "tags": ["Cinema4D", "Scripting", "Parametrisch"]
+  },
+  "Dynamics": {
+    "description": "Simulation von physikalischen Kräften wie Gravitation, Kollision und Reibung für realistische Bewegungen.",
+    "tags": ["Cinema4D", "Simulation", "Animation"]
+  },
+  "Rigid Body Tag": {
+    "description": "Kennzeichnung eines Objekts als starrer Körper für Dynamics-Simulationen, das nicht verformt wird.",
+    "tags": ["Cinema4D", "Simulation", "Dynamics"]
+  },
+  "Particle System": {
+    "description": "Generierung und Steuerung vieler kleiner Partikel zur Darstellung von Rauch, Feuer, Staub oder anderen Effekten.",
+    "tags": ["Cinema4D", "Simulation", "Effekte"]
+  },
+  "Thinking Particles": {
+    "description": "Erweiterte Partikelplattform mit XPresso-Integration für komplexe, regelbasierte Partikelsysteme.",
+    "tags": ["Cinema4D", "Simulation", "Effekte"]
+  },
+  "Region Render": {
+    "description": "Rendering nur eines ausgewählten Bildbereichs zur schnellen Vorschau von Änderungen.",
+    "tags": ["Rendering", "Cinema4D", "Workflow"]
+  },
+  "Layer Shader": {
+    "description": "Shader, der mehrere Materialien oder Texturen in Schichten mischt und maskenbasiert anordnet.",
+    "tags": ["Texturierung", "Cinema4D", "Shader"]
+  },
+  "Edge Detection": {
+    "description": "Verfahren zur Erkennung von Kantenkonturen, oft in Sketch & Toon für Outline-Generierung eingesetzt.",
+    "tags": ["Visualisierung", "Cinema4D", "Sketch & Toon"]
+  },
+  "Toon Shader": {
+    "description": "Zweistufiger Shader für Cel-Shading-Effekte, der Flächen in abgestuften Farbbändern darstellt.",
+    "tags": ["Visualisierung", "Cinema4D", "Sketch & Toon"]
+  },
+  "Entformungswinkel (Draft Angle)": {
+    "description": "Leichter Winkel an Wänden eines Bauteils, damit es aus einer Spritzgussform oder einem Guss leicht entformt werden kann.",
+    "tags": ["Fertigung", "Spritzguss", "CAD"]
+  },
+  "Untermaß (Undercut)": {
+    "description": "Bereich einer Geometrie, der unter einer angrenzenden Form liegt und ohne Entformungshilfen nicht direkt ausgeformt werden kann.",
+    "tags": ["Fertigung", "Guss", "CAD"]
+  },
+  "Fase (Chamfer)": {
+    "description": "Abschrägung einer Kante, meist mit konstantem Winkel oder Breite, um scharfe Kanten zu vermeiden und Montage zu erleichtern.",
+    "tags": ["CAD", "Mechanik", "Fertigung"]
+  },
+  "Abrundung (Fillet)": {
+    "description": "Rundung einer Innen- oder Außenkante mit definiertem Radius für bessere Spannungskonzentration und ästhetische Optik.",
+    "tags": ["CAD", "Mechanik", "Fertigung"]
+  },
+  "Rippe (Rib)": {
+    "description": "Dünne Verstärkungswand in einem Spritzgussteil oder 3D-Modell, um Steifigkeit zu erhöhen, ohne viel Material hinzuzufügen.",
+    "tags": ["Design", "Spritzguss", "CAD"]
+  },
+  "Steg (Gusset)": {
+    "description": "Verstärkungs- oder Verbindungsstrebe zwischen Flächen oder Rippen, die Lasten verteilen hilft.",
+    "tags": ["Mechanik", "Struktur", "CAD"]
+  },
+  "Kerbe (Relief Cut)": {
+    "description": "Ausgeschnittene Öffnung oder Einkerbung, um beim Biegen oder Umformen Spannungskonzentrationen zu reduzieren.",
+    "tags": ["Blechbearbeitung", "CAD", "Fertigung"]
+  },
+  "Biegeradius (Bend Radius)": {
+    "description": "Kleinstmöglicher Radius, mit dem ein Blech oder Rohr ohne Rissbildung gebogen werden kann.",
+    "tags": ["Blechbearbeitung", "Mechanik", "CAD"]
+  },
+  "Abkantung (Flanging)": {
+    "description": "Umformen von Blechkanten in einem definierten Winkel, um Steifigkeit oder Befestigungsflächen zu erzeugen.",
+    "tags": ["Blechbearbeitung", "CAD", "Fertigung"]
+  },
+  "Bohrungstoleranz (Hole Tolerance)": {
+    "description": "Genauigkeitsspanne für Durchmesser und Lage einer Bohrung, um Passgenauigkeit zu gewährleisten.",
+    "tags": ["Technische Zeichnung", "Qualität", "CAD"]
+  },
+  "Lotrecht (Perpendicularity)": {
+    "description": "Form- und Lagetoleranz, die angibt, wie rechtwinklig eine Fläche oder Achse zu einer Bezugsfläche sein muss.",
+    "tags": ["Qualitätssicherung", "Technische Zeichnung", "CAD"]
+  },
+  "Parallelität (Parallelism)": {
+    "description": "Lagetoleranz, die definiert, wie parallel zwei Flächen oder Achsen zueinander liegen müssen.",
+    "tags": ["Qualitätssicherung", "Technische Zeichnung", "CAD"]
+  },
+  "Oberflächenrauheit (Surface Roughness)": {
+    "description": "Maß für die Mikrostruktur einer Oberfläche (z. B. Ra-Wert), wichtig für Funktion, Verschleiß und Optik.",
+    "tags": ["Qualität", "Oberflächentechnik", "Fertigung"]
+  },
+  "Parting Line": {
+    "description": "Nahtlinie zwischen den beiden Hälften einer Form, entlang der das Gussteil oder Spritzgussteil getrennt wird.",
+    "tags": ["Formtechnik", "Spritzguss", "CAD"]
+  },
+  "Kern (Core)": {
+    "description": "Formeinsatz, der Hohlräume im Inneren eines Guss- oder Spritzgussteils erzeugt.",
+    "tags": ["Guss", "Spritzguss", "CAD"]
+  },
+  "Anschnitt (Gate)": {
+    "description": "Eintrittspunkt für Kunststoff in eine Spritzgussform, dessen Positionierung den Fließweg und die Füllung steuert.",
+    "tags": ["Spritzguss", "Formtechnik", "CAD"]
+  },
+  "Freiformfläche (Freeform Surface)": {
+    "description": "Komplexe, organische Fläche ohne einfache mathematische Beschreibung, används für ergonomische oder ästhetische Designs.",
+    "tags": ["Oberflächenmodellierung", "Industriedesign", "CAD"]
+  },
+  "Volumenstrom (Flow Rate)": {
+    "description": "Geschwindigkeit, mit der Kunststoff oder Gießmaterial die Form füllt; relevant für Simulation und Konstruktion von Formkanälen.",
+    "tags": ["Simulation", "Spritzguss", "CAD"]
+  },
+  "Bohrungsversatz (Hole Offset)": {
+    "description": "Bewusste Verschiebung eines Bohrungszentrums von einer Symmetrie- oder Referenzachse für Montage- oder Toleranzgründe.",
+    "tags": ["Mechanik", "CAD", "Konstruktion"]
+  },
+  "Kernzug (Core Pull)": {
+    "description": "Mechanismus zum Herausziehen von Formkernen nach dem Guss, oft schräg oder in eigenen Achsen geführt.",
+    "tags": ["Formtechnik", "Guss", "CAD"]
+  },
+  "Maschinelle Bearbeitung (Machining)": {
+    "description": "Spanende Fertigung, bei der Material mit Dreh-, Fräs- oder Schleifwerkzeugen abgetragen wird; erfordert Präzisionsgeometrien im CAD.",
+    "tags": ["Fertigung", "CAM", "CAD"]
+  },
+  "Werkzeugwege (Toolpaths)": {
+    "description": "In CAM generierte Pfade, denen das Fräs- oder Drehwerkzeug folgt, um das Bauteil aus dem Rohling zu schneiden.",
+    "tags": ["CAM", "Fertigung", "CAD"]
+  },
+  "Baugruppenanalyse (Assembly Analysis)": {
+    "description": "Untersuchung von Bewegungsabläufen und Passungen in einer CAD-Baugruppe zur Vermeidung von Kollisionen und Fehlausrichtungen.",
+    "tags": ["CAD", "Mechanik", "Simulation"]
+  },
+  "Umformsimulation (Forming Simulation)": {
+    "description": "Numerische Analyse von Blechumformprozessen (Tiefziehen, Biegen), um Risse und Falten bereits im CAD zu vermeiden.",
+    "tags": ["Simulation", "Blechbearbeitung", "CAD"]
+  },
+  "STL": {
+    "description": "Standard-Tesselation Language: Offenes Dateiformat für den Export von 3D-Oberflächen als Dreiecksnetz ohne Material- oder Farbinformationen.",
+    "tags": ["3D-Druck", "Dateiformat", "Modellvorbereitung"]
+  },
+  "Slicer": {
+    "description": "Software, die ein 3D-Modell in einzelne Ebenen (Schichten) zerlegt und daraus den G-Code für den Drucker generiert.",
+    "tags": ["3D-Druck", "Workflow", "Software"]
+  },
+  "G-Code": {
+    "description": "Befehlssprache für CNC- und 3D-Drucker, die alle Bewegungen, Temperaturen und Aktionen schichtweise steuert.",
+    "tags": ["3D-Druck", "Maschinensteuerung", "Dateiformat"]
+  },
+  "Filament": {
+    "description": "Thermoplastischer Faden (PLA, ABS, PETG etc.), der als Druckmaterial durch den Extruder gefördert wird.",
+    "tags": ["3D-Druck", "Material", "FDM"]
+  },
+  "Extruder": {
+    "description": "Mechanismus, der das Filament erhitzt und durch die Düse drückt, um es schichtweise abzulegen.",
+    "tags": ["3D-Druck", "Hardware", "FDM"]
+  },
+  "Düse (Nozzle)": {
+    "description": "Metallspitze am Hotend, deren Durchmesser (z. B. 0,4 mm) die Breite jeder Druckspur bestimmt.",
+    "tags": ["3D-Druck", "Hardware", "FDM"]
+  },
+  "Hotend": {
+    "description": "Heizblock und Düse, in dem das Filament auf Schmelztemperatur gebracht wird.",
+    "tags": ["3D-Druck", "Hardware", "FDM"]
+  },
+  "Heizbett (Heated Bed)": {
+    "description": "Temperierbare Bauplattform, die Verzug minimiert und die Haftung der ersten Schicht verbessert.",
+    "tags": ["3D-Druck", "Hardware", "FDM"]
+  },
+  "Betthaftung (Bed Adhesion)": {
+    "description": "Methoden (Klebeband, Klebestift, PEI-Plate), um das Modell sicher auf der Bauplattform zu fixieren.",
+    "tags": ["3D-Druck", "Workflow", "Qualität"]
+  },
+  "Schichthöhe (Layer Height)": {
+    "description": "Dicke jeder aufgetragenen Schicht, typischerweise zwischen 0,1 mm und 0,3 mm, beeinflusst Auflösung und Druckzeit.",
+    "tags": ["3D-Druck", "Qualität", "Workflow"]
+  },
+  "Infill (Füllung)": {
+    "description": "Inneres Muster und Dichte eines Modells, um Stabilität zu erzeugen und Material zu sparen.",
+    "tags": ["3D-Druck", "Struktur", "Workflow"]
+  },
+  "Infill-Dichte": {
+    "description": "Prozentualer Anteil des Innenvolumens, der mit Füllmaterial ausgelegt wird (z. B. 20 %, 50 %).",
+    "tags": ["3D-Druck", "Struktur", "Workflow"]
+  },
+  "Perimeter (Wandstärke)": {
+    "description": "Anzahl und Dicke der äußeren Ringe, die das Modell umgeben und die Oberfläche definieren.",
+    "tags": ["3D-Druck", "Qualität", "Workflow"]
+  },
+  "Top/Bottom Layers": {
+    "description": "Anzahl der geschlossenen Schichten oben und unten im Modell, um eine glatte Oberfläche zu erzielen.",
+    "tags": ["3D-Druck", "Qualität", "Workflow"]
+  },
+  "Stützstruktur (Support)": {
+    "description": "Temporäre Geometrie, die Überhänge und Brücken im Modell trägt und nach dem Druck entfernt wird.",
+    "tags": ["3D-Druck", "Workflow", "Support"]
+  },
+  "Überhang (Overhang)": {
+    "description": "Bereich, der ohne Stützstruktur in der Luft hängt; Winkel über ~45° erfordern meist Support.",
+    "tags": ["3D-Druck", "Geometrie", "Workflow"]
+  },
+  "Brücke (Bridging)": {
+    "description": "Druck von horizontalen Verbindungen zwischen zwei Punkten ohne Support, abhängig von Geschwindigkeit und Kühlung.",
+    "tags": ["3D-Druck", "Geometrie", "Workflow"]
+  },
+  "Retraktion (Retraction)": {
+    "description": "Zurückziehen des Filaments im Extruder, um Fadenziehen und Tropfen beim Verfahrweg zu vermeiden.",
+    "tags": ["3D-Druck", "Qualität", "Workflow"]
+  },
+  "Warping": {
+    "description": "Verzug der Bauteile an den Kanten, verursacht durch ungleichmäßige Abkühlung und Schrumpfung des Materials.",
+    "tags": ["3D-Druck", "Qualität", "Material"]
+  },
+  "Druckgeschwindigkeit (Print Speed)": {
+    "description": "Bewegungsgeschwindigkeit des Extruders während des Drucks, beeinflusst Detailtreue und Haftung zwischen den Schichten.",
+    "tags": ["3D-Druck", "Workflow", "Qualität"]
+  },
+  "Mesh-Reparatur (Mesh Repair)": {
+    "description": "Automatisches oder manuelles Schließen von Löchern und Entfernen von nicht manifold Geometrie vor dem Slicen.",
+    "tags": ["3D-Druck", "Software", "Vorbereitung"]
+  },
+  "Bauraum (Build Volume)": {
+    "description": "Maximales Objektmaß, das der Drucker in X, Y und Z fertigen kann.",
+    "tags": ["3D-Druck", "Hardware", "Planung"]
+  },
+  "Auto-Bed-Leveling": {
+    "description": "Sensor-gestützte Kalibrierung der Bauplattform, um die erste Schicht über die gesamte Fläche gleichmäßig zu drucken.",
+    "tags": ["3D-Druck", "Hardware", "Workflow"]
+  },
+  "Skirt": {
+    "description": "Einzelne Umrandung um das Modell auf der Bauplattform, um Filamentfluss zu stabilisieren, ohne das Modell zu berühren.",
+    "tags": ["3D-Druck", "Workflow", "Qualität"]
+  },
+  "Brim": {
+    "description": "Breitere Umrandung, die am Rand des Modells haftet, um Betthaftung zu erhöhen und Warping zu reduzieren.",
+    "tags": ["3D-Druck", "Workflow", "Qualität"]
+  },
+  "Raft (Unterbau)": {
+    "description": "Mehrschichtige Grundstruktur unter dem Modell, die von der Bauplat­te getrennt wird, um Haftung und Ebenmäßigkeit zu verbessern.",
+    "tags": ["3D-Druck", "Workflow", "Qualität"]
+  },
+  "Filament-Feuchtigkeit (Moisture Content)": {
+    "description": "Aufgenommene Feuchte im Filament, die zu Dampfblasen und Porosität im Druck führen kann.",
+    "tags": ["3D-Druck", "Material", "Qualität"]
+  },
+  "Drehbank (Lathe)": {
+    "description": "Werkzeugmaschine, bei der das zu bearbeitende Werkstück rotiert und das Schneidwerkzeug in linearen oder angepassten Vorschüben gegen das Werkstück geführt wird, um rotationssymmetrische Formen zu erzeugen.",
+    "tags": ["Fertigungstechnik", "Drehen", "Mechanik", "CAM"]
+  },
+  "CNC–Drehzentrum (CNC Lathe)": {
+    "description": "Automatisierte Drehmaschine mit numerischer Steuerung, die komplexe Konturen und mehrere Bearbeitungsschritte (Drehen, Bohren, Gewinden) in einer Aufspannung ausführt.",
+    "tags": ["Fertigungstechnik", "Drehen", "Automatisierung", "CAM"]
+  },
+  "Fräsen (Milling)": {
+    "description": "Spanende Bearbeitung, bei der das rotierende Schneidwerkzeug über das feststehende Bauteil bewegt wird, um flache, freie sowie komplexe Freiformflächen und Nuten zu erzeugen.",
+    "tags": ["Fertigungstechnik", "Fräsen", "Mechanik", "CAM"]
+  },
+  "CNC–Fräszentrum (CNC Milling Center)": {
+    "description": "Numerisch gesteuerte Fräsmaschine, die in mehreren Achsen simultan komplexe Formen, Bohrungen und Konturen mit hoher Wiederholgenauigkeit fertigt.",
+    "tags": ["Fertigungstechnik", "Fräsen", "Automatisierung", "CAM"]
+  },
+  "Biegen (Press Braking)": {
+    "description": "Umformverfahren, bei dem Bleche oder Profile zwischen einem oberen Stempel und einer unteren Matrize gekantet werden, um definierte Winkel zu erzeugen.",
+    "tags": ["Fertigungstechnik", "Umformen", "Blechbearbeitung", "Mechanik"]
+  },
+  "Laserschneiden (Laser Cutting)": {
+    "description": "Trennverfahren, bei dem ein fokussierter Laserstrahl Material (Metall, Kunststoff, Holz) lokal aufschmilzt oder verdampft und so präzise Schnittkanten erzeugt.",
+    "tags": ["Fertigungstechnik", "Trennen", "Lasertechnik", "CNC"]
+  },
+  "Wasserstrahlschneiden (Waterjet Cutting)": {
+    "description": "Trennverfahren, bei dem ein Hochdruckwasserstrahl, oft mit Abrasivmittel versetzt, durch nahezu alle Werkstoffe schneidet, ohne thermische Beeinflussung.",
+    "tags": ["Fertigungstechnik", "Trennen", "Hydrodynamik", "CNC"]
+  },
+  "Plasmaschneiden (Plasma Cutting)": {
+    "description": "Trennverfahren für leitfähige Materialien, bei dem ein ionisierter Gasstrahl (Plasma) mit hoher Temperatur das Material schmilzt und wegbläst.",
+    "tags": ["Fertigungstechnik", "Trennen", "Plasmatechnik", "CNC"]
+  },
+  "Bohren (Drilling)": {
+    "description": "Spanendes Verfahren zum Herstellen zylindrischer Löcher durch rotierende Bohrer, anwendbar in Handgerät- und Maschinenbearbeitung.",
+    "tags": ["Fertigungstechnik", "Bohren", "Mechanik", "CAM"]
+  },
+  "Schleifen (Grinding)": {
+    "description": "Feinbearbeitung, bei der Körnchen auf einer rotierenden Schleifscheibe Werkstoff abtragen, um Oberflächenrauheit zu verringern und enge Toleranzen zu erzielen.",
+    "tags": ["Fertigungstechnik", "Oberflächenbearbeitung", "Mechanik", "Präzision"]
+  },
+  "Erodieren (EDM)": {
+    "description": "Funkenerodierverfahren, bei dem Funkenentladungen zwischen einer Elektrodenform und dem Werkstück Material punktuell abtragen, besonders für harte Werkstoffe und feine Strukturen.",
+    "tags": ["Fertigungstechnik", "Erodieren", "Funkenerosion", "Präzision"]
+  },
+  "Schweißen (Welding)": {
+    "description": " Fügeverfahren, bei dem Werkstoffe durch Erhitzen (elektrisch, gasbrenner) und/oder Druck miteinander verbunden werden, oft mit Zusatzwerkstoffzuführung.",
+    "tags": ["Fertigungstechnik", "Fügen", "Metallverarbeitung", "Qualität"]
+  }
+}

@@ -1,0 +1,123 @@
+@import "fonts/Inter/Inter.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+
+@layer base {
+  :root {
+    --background: 12 12 12;
+    --foreground: 0 0% 89%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 0%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 20%;
+    --secondary-foreground: 0 0% 80%;
+    --muted: 0 0% 40%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 10% 50%;
+    --accent-foreground: 0 20% 70%;
+    --destructive: 348 78% 50%;
+    --destructive-foreground: 348 98% 70%;
+    --border: 0 0% 90%;
+    --input: 0 0% 50%;
+    --ring: 0 0% 0%;
+    --radius: 0.25rem;
+  }
+}
+
+:root {
+  /* color definitions (legacy support) */
+  --color-background: rgb(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-disabled: hsl(var(--muted));
+  --color-notification: hsl(var(--accent));
+  --color-background-alpha: hsl(0deg 0% 97%);
+  --color-background-beta: hsl(0deg 0% 94%);
+  --color-foreground-alpha: rgb(0 0 0 / 5%);
+
+  /* size definitions (legacy support) */
+  --border-radius: var(--radius);
+  --margin: 1rem;
+  --line-height: 1.45;
+  --icon-size: calc(1rem * var(--line-height));
+}
+
+
+html {
+  scroll-behavior: smooth;
+  overscroll-behavior: none;
+}
+
+
+body {
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: var(--line-height);
+  color: var(--color-foreground);
+  background-color: rgb(var(--background));
+  color: hsl(var(--foreground));
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+}
+
+@supports (font-variation-settings: normal) {
+  body {
+    font-family: InterVariable, system-ui, -apple-system, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif,
+      "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+      "Noto Color Emoji";
+    font-optical-sizing: auto;
+    font-weight: 400;
+
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 700;
+}
+
+a:link {
+  color: var(--color-foreground);
+  text-decoration: none;
+}
+
+a:visited {
+  color: var(--color-foreground);
+}
+
+a:hover {
+  color: var(--color-foreground);
+  text-decoration: underline;
+}
+
+a:focus {
+  color: var(--color-foreground);
+}
+
+a:active {
+  color: var(--color-foreground);
+}
+
+
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
