@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { RiFullscreenLine, RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
+import getConfig from "next/config";
 
 function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
   const gridRef = React.useRef(null);
@@ -131,23 +132,94 @@ function SlidesSection({ slides, selectedIndex, setSelectedIndex }) {
 }
 
 const SessionPage = () => {
+  const router = useRouter();
+  const section = router?.query?.section || "";
+  const collection = router?.query?.collection || "";
+  const course = router?.query?.course || "";
+  const session = router?.query?.session || "";
   const [data, setData] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
+  const lang = "de";
+  const config = getConfig().publicRuntimeConfig;
+
   useEffect(() => {
-    fetch("/data/intro.json")
-      .then((res) => res.json())
-      .then((json) => setData(json));
-  }, []);
+    if (section && collection && course && session) {
+      const fetchData = async () => {
+        try {
+          const url = `${config.api.host}:${config.api.port}/${section}/${collection}/${course}/${session}.json`;
+          const res = await fetch(url);
+          if (res.ok) {
+            const json = await res.json();
+            setData(json);
+          } else {
+            setData({ error: "Failed to fetch data" });
+          }
+        } catch (err) {
+          setData({ error: err.message });
+        }
+      };
+      fetchData();
+    }
+  }, [section, collection, course, session, config]);
 
   if (!data) return <div>Loading...</div>;
+  if (data.error) return <div>Error: {data.error}</div>;
 
-  const slides = data.slides || [];
+  // Find the slides child (usually only one)
+  const slidesChild = Array.isArray(data.children)
+    ? data.children.find(child => child.slug === "slides")
+    : null;
+
+  // Prefer language-specific slides, fallback to default
+  let slidesArr = [];
+  if (slidesChild) {
+    // Try language-specific slides array
+    if (lang === "de" && Array.isArray(slidesChild.slides_de)) {
+      slidesArr = slidesChild.slides_de;
+    } else if (lang === "en" && Array.isArray(slidesChild.slides_en)) {
+      slidesArr = slidesChild.slides_en;
+    }
+    // Fallback: try parsing slides from content
+    else if (slidesChild.content?.slides) {
+      try {
+        slidesArr = JSON.parse(slidesChild.content.slides);
+      } catch (e) {
+        slidesArr = [];
+      }
+    }
+  }
+
+  // Normalize slides for the UI
+  const slides = slidesArr.map(slide => {
+    // If slide is from slides_de/slides_en, image is in slide.content.image (string or array)
+    if (slide.content && slide.content.image) {
+      return {
+        id: slide.id,
+        thumbnail: Array.isArray(slide.content.image) ? slide.content.image[0] : slide.content.image,
+        title: slide.content.caption || slide.content.alt || "Slide"
+      };
+    }
+    // If slide is from parsed JSON, image is in slide.content.image (array)
+    if (slide.content && Array.isArray(slide.content.image)) {
+      return {
+        id: slide.id,
+        thumbnail: slide.content.image[0],
+        title: slide.content.caption || slide.content.alt || "Slide"
+      };
+    }
+    // fallback
+    return {
+      id: slide.id,
+      thumbnail: "",
+      title: "Slide"
+    };
+  });
 
   return (
     <div className="flex flex-col h-screen gap-4 overflow-hidden">
       <Card className="flex flex-col justify-center items-start p-0 bg-background border-none">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">{data.name}</h1>
+        <h1 className="text-3xl font-bold mb-2 text-foreground">{data.title}</h1>
         <div className="max-w-2xl">
           <p className="text-muted-foreground">{data.abstract}</p>
         </div>

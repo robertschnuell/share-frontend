@@ -15,7 +15,6 @@ export default function Navigation() {
   const { pageName, setPageName } = useContext(PageNameContext);
   const router = useRouter();
 
-  // Breadcrumbs logic
   const pathSegments = router.asPath.split("?")[0].split("/").filter(Boolean);
   const breadcrumbs = [];
   let href = "";
@@ -39,7 +38,7 @@ export default function Navigation() {
       case "robert schnüll":
         return (
           <NextLink href="https://robertschnuell.de/portfolio">
-             <RiSquareFill className="inline w-3" /> {pageName}
+            <RiSquareFill className="inline w-3" /> {pageName}
           </NextLink>
         );
 
@@ -56,23 +55,24 @@ export default function Navigation() {
     <header className="flex flex-col items-center justify-between w-full font-normal md:flex-row md:justify-between">
       <div className="flex flex-col md:flex-row md:items-center w-full">
         <div className="flex items-center gap-4">
+          <div>
+            <Breadcrumb className="ml-0 md:ml-8 mt-2 md:mt-0">
+              <BreadcrumbList>
+                {breadcrumbs.map((crumb, idx) => (
+                  <BreadcrumbItem key={crumb.href}>
+                    <BreadcrumbLink asChild>
+                      <NextLink href={crumb.href} aria-current={crumb.isLast ? "page" : undefined}>
+                        {crumb.label}
+                      </NextLink>
+                    </BreadcrumbLink>
+                    {idx < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
+                  </BreadcrumbItem>
+                ))}
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
           <h1>rfws</h1>
-          <h2>share</h2>
         </div>
-        <Breadcrumb className="ml-0 md:ml-8 mt-2 md:mt-0">
-          <BreadcrumbList>
-            {breadcrumbs.map((crumb, idx) => (
-              <BreadcrumbItem key={crumb.href}>
-                <BreadcrumbLink asChild>
-                  <NextLink href={crumb.href} aria-current={crumb.isLast ? "page" : undefined}>
-                    {crumb.label}
-                  </NextLink>
-                </BreadcrumbLink>
-                {idx < breadcrumbs.length - 1 && <BreadcrumbSeparator />}
-              </BreadcrumbItem>
-            ))}
-          </BreadcrumbList>
-        </Breadcrumb>
       </div>
     </header>
   );
