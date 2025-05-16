@@ -1,22 +1,12 @@
-import { Button } from "@/components/ui/button";
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
 import NextLink from "next/link";
-import { RiSquareFill } from "@remixicon/react";
 
-import { PageNameContext } from "@/context/PageNameContext";
-import { useContext } from "react";
 import { useRouter } from "next/router";
 import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbSeparator, BreadcrumbLink } from "@/components/ui/breadcrumb";
 import getConfig from "next/config";
 
 export default function Navigation() {
-  const { t } = useTranslation("main");
-  const { i18n } = useTranslation();
-  const { pageName, setPageName } = useContext(PageNameContext);
   const router = useRouter();
   const config = getConfig().publicRuntimeConfig;
-  console.log("asdasd", config);
 
   const pathSegments = router.asPath.split("?")[0].split("/").filter(Boolean);
   const breadcrumbs = [];

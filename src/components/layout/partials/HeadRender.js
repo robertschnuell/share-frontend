@@ -1,12 +1,12 @@
 import Head from "next/head";
 
-import { PageNameContext } from '@/context/PageNameContext';
-import  { useContext } from 'react';
+
+import getConfig from "next/config";
 
 const HeadRender = () => {
-  const { pageName, setPageName } = useContext(PageNameContext);
 
 
+  const config = getConfig().publicRuntimeConfig;
   return (
     <Head>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +17,7 @@ const HeadRender = () => {
       <link rel="icon" type="image/x-icon" href="./favicon.ico" sizes="16x16 32x32" />
       <link rel="icon" type="image/svg+xml" href="./favicon.svg" sizes="any" />
       <link rel="mask-icon" type="image/svg+xml" href="./favicon.svg" />
-      <title>{pageName}</title>
+      <title>{config?.app?.name || "share"}</title>
 
     </Head>
   );

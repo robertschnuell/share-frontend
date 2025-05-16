@@ -1,11 +1,9 @@
 import "../styles.css";
 
-
 import Layout from "@/components/layout/default";
 import { useEffect, useState } from "react";
-import { PageNameProvider } from "@/context/PageNameContext";
 
-import HeadRender from '@/components/layout/partials/HeadRender';
+import HeadRender from "@/components/layout/partials/HeadRender";
 
 function App({ Component, pageProps }) {
   const [initialRenderComplete, setInitialRenderComplete] = useState(false);
@@ -17,12 +15,12 @@ function App({ Component, pageProps }) {
   if (!initialRenderComplete) return <></>;
 
   return (
-    <PageNameProvider>
-     <HeadRender />
+    <>
+      <HeadRender />
       <Layout>
         <Component {...pageProps} />
       </Layout>
-    </PageNameProvider>
+    </>
   );
 }
 
