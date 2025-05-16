@@ -6,6 +6,7 @@ import { RiExpandDiagonalLine } from "@remixicon/react";
 import { useRouter } from "next/router";
 import DictionaryView from "@/components/layout/partials/DictionaryView";
 import getConfig from "next/config";
+import AssetsTable from "@/components/layout/partials/AssetsTable";
 
 
 
@@ -47,7 +48,7 @@ const CoursePage = () => {
 
 
 
-  const [oldData, setOldData] = useState([]);
+
   const [dictionary, setDictionary] = useState([]);
 
 
@@ -68,7 +69,7 @@ const CoursePage = () => {
 
   return (
     <div>
-      <SiteHeader title={oldData?.title} subtitle={oldData?.term} />
+      <SiteHeader title={"oldData?.title"} subtitle={"oldData?.term"} />
 
       <SessionCards
         title="sessions"
@@ -128,45 +129,8 @@ const CoursePage = () => {
         </div>
 
         <div className="md:col-span-2 flex flex-col h-full">
-          {/* Only render assets card if assets exist and are not empty */}
-          {data.assets && Object.keys(data.assets).length > 0 && (
-            <>
-              <div className="mb-3 font-semibold text-muted">assets</div>
-              <Card className="rounded-xl border border-muted bg-background p-4 md:p-6 flex-1 h-full min-h-0">
-                <div className="h-full min-h-0 max-h-[30vh] md:max-h-full overflow-y-auto">
-                  <table className="min-w-full text-xs">
-                    <thead>
-                      <tr>
-                        <th className="text-left font-semibold">Name</th>
-                        <th className="text-left font-semibold">Type</th>
-                        <th className="text-left font-semibold">Size</th>
-                        <th className="text-left font-semibold">Download</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {Object.values(data.assets).map((asset) => (
-                        <tr key={asset.id}>
-                          <td>{asset.name || asset.filename}</td>
-                          <td>{asset.extension}</td>
-                          <td>{asset.niceSize}</td>
-                          <td>
-                            <a
-                              href={asset.url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-blue-600 underline"
-                            >
-                              Download
-                            </a>
-                          </td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </Card>
-            </>
-          )}
+          {/* Use AssetsTable component */}
+          <AssetsTable assets={data.assets} />
         </div>
       </section>
     </div>
