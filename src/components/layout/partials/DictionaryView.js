@@ -3,21 +3,19 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DictionaryAccordionTable from "./DictionaryAccordionTable";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const DictionaryView = ({ content, fullscreen = true }) => {
   const [globalFilter, setGlobalFilter] = useState("");
   const [tagFilter, setTagFilter] = useState(null);
   const [selectedTerm, setSelectedTerm] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const filteredData = useMemo(() => {
     let result = content || [];
     if (globalFilter) {
       const s = globalFilter.toLowerCase();
-      result = result.filter(
-        (item) =>
-          item.term.toLowerCase().includes(s) ||
-          item.description.toLowerCase().includes(s)
-      );
+      result = result.filter((item) => item.term.toLowerCase().includes(s) || item.description.toLowerCase().includes(s));
     }
     if (tagFilter) {
       result = result.filter((item) => item.tags.includes(tagFilter));
@@ -25,10 +23,17 @@ const DictionaryView = ({ content, fullscreen = true }) => {
     return result;
   }, [content, globalFilter, tagFilter]);
 
-  const selected = useMemo(
-    () => filteredData.find((item) => item.term === selectedTerm) || null,
-    [filteredData, selectedTerm]
-  );
+  const selected = useMemo(() => filteredData.find((item) => item.term === selectedTerm) || null, [filteredData, selectedTerm]);
+
+  // Helper to detect mobile (tailwind 'md' breakpoint)
+  const isMobile = typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
+
+  // Open dialog on mobile when a term is selected
+  React.useEffect(() => {
+    if (isMobile && selectedTerm) setDialogOpen(true);
+    else setDialogOpen(false);
+    // eslint-disable-next-line
+  }, [selectedTerm]);
 
   if (!fullscreen) {
     return (
@@ -52,39 +57,40 @@ const DictionaryView = ({ content, fullscreen = true }) => {
           className="max-w-sm"
         />
         {tagFilter && (
-          <Badge
-            variant="default"
-            className="cursor-pointer"
-            onClick={() => setTagFilter(null)}
-          >
+          <Badge variant="default" className="cursor-pointer" onClick={() => setTagFilter(null)}>
             {tagFilter} ✕
           </Badge>
         )}
       </div>
       <div className="flex-1 flex flex-col md:flex-row gap-4 min-h-0">
         {/* Sidebar */}
-        <div className="md:w-1/2 w-full h-1 md:h-auto md:min-h-0 md:max-h-none md:flex-shrink-0">
-          <div className="border-t border-b rounded-md bg-background h-full md:h-[calc(100vh-140px)] overflow-y-auto scrollbar-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="w-full md:w-1/2 flex-1 md:h-auto md:min-h-0 md:max-h-none md:flex-shrink-0">
+          <div className="border-t border-b rounded-md bg-background h-[50vh] md:h-[calc(100vh-140px)] overflow-y-auto scrollbar-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <ul>
               {filteredData.length ? (
                 filteredData.map((item) => (
                   <li
                     key={item.term}
-                    className={`flex items-center px-4 py-2 border-b last:border-b-0 cursor-pointer transition-colors text-xs ${
-                      selectedTerm === item.term
-                        ? "bg-muted font-semibold"
-                        : "hover:bg-accent"
+                    className={`flex flex-col md:flex-row items-start md:items-center px-4 py-2 border-b last:border-b-0 cursor-pointer transition-colors text-xs ${
+                      selectedTerm === item.term && !isMobile ? "bg-muted font-semibold" : "hover:bg-accent"
                     }`}
-                    onClick={() => setSelectedTerm(item.term)}
+                    onClick={() => {
+                      setSelectedTerm(item.term);
+                      if (isMobile) setDialogOpen(true);
+                    }}
                   >
-                    <span className="truncate">{item.term}</span>
-                    <span className="flex flex-wrap gap-1 ml-auto">
+                    <span className="truncate w-full md:w-auto">{item.term}</span>
+                    <span
+                      className="
+                        flex flex-wrap gap-1 ml-0 mt-1 md:ml-auto md:mt-0
+                      "
+                    >
                       {item.tags.map((tag) => (
                         <Badge
                           key={tag}
                           variant="outline"
                           className="cursor-pointer text-[10px] px-1 py-0.5 h-4"
-                          onClick={e => {
+                          onClick={(e) => {
                             e.stopPropagation();
                             setTagFilter(tag);
                           }}
@@ -101,8 +107,8 @@ const DictionaryView = ({ content, fullscreen = true }) => {
             </ul>
           </div>
         </div>
-        {/* Detail Card */}
-        <div className="md:w-1/2 w-full flex items-center justify-center min-h-0">
+        {/* Detail Card (desktop only) */}
+        <div className="hidden md:flex md:w-1/2 w-full items-center justify-center min-h-0">
           {selected ? (
             <Card className="w-full max-w-xl mx-auto">
               <CardHeader>
@@ -111,12 +117,7 @@ const DictionaryView = ({ content, fullscreen = true }) => {
               <CardContent>
                 <div className="mb-2 flex flex-wrap gap-1">
                   {selected.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant="outline"
-                      className="cursor-pointer"
-                      onClick={() => setTagFilter(tag)}
-                    >
+                    <Badge key={tag} variant="outline" className="cursor-pointer" onClick={() => setTagFilter(tag)}>
                       {tag}
                     </Badge>
                   ))}
@@ -126,12 +127,41 @@ const DictionaryView = ({ content, fullscreen = true }) => {
             </Card>
           ) : (
             <div className="text-muted-foreground text-center w-full">
-              {filteredData.length
-                ? "Bitte einen Begriff aus der Liste auswählen."
-                : ""}
+              {filteredData.length ? "Bitte einen Begriff aus der Liste auswählen." : ""}
             </div>
           )}
         </div>
+        {/* Mobile Dialog for detail card */}
+        <Dialog
+          open={dialogOpen}
+          onOpenChange={(open) => {
+            setDialogOpen(open);
+            if (!open) setSelectedTerm(null);
+          }}
+        >
+          <DialogContent className="w-auto p-4 rounded-2xl bg-foreground text-background">
+            {selected && (
+              <>
+                <DialogHeader>
+                  <DialogTitle>{selected.term}</DialogTitle>
+                </DialogHeader>
+                <div className="mb-2 flex flex-wrap gap-1">
+                  {selected.tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="outline"
+                      className="cursor-pointer bg-background text-foreground border-foreground"
+                      onClick={() => setTagFilter(tag)}
+                    >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+                <div>{selected.description}</div>
+              </>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </>
   );
