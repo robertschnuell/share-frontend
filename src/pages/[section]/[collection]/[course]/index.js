@@ -69,6 +69,12 @@ const CoursePage = () => {
     }
   }, [data]);
 
+  // Extract briefing thumbnail from API data
+  const briefingThumbnail =
+    data?.briefing?.[0]?.thumbnail ||
+    data?.briefing?.[0]?.translations?.[lang]?.content?.thumbnail ||
+    null;
+
   return (
     <div>
       <SiteHeader title={data?.title || ""} subtitle={data?.[lang]?.term?.toLowerCase() || ""} />
@@ -98,7 +104,7 @@ const CoursePage = () => {
             <button
               type="button"
               className="ml-auto flex items-center justify-center h-6"
-              title="Expand Dictionary"
+              title="Expand Briefing"
               onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/briefing`)}
             >
               <span className="sr-only">Expand Briefing</span>
@@ -106,7 +112,11 @@ const CoursePage = () => {
             </button>
           </div>
           <Card className="rounded-xl border border-muted bg-background p-4 md:p-6 flex-1 h-full min-h-0 flex items-center justify-center">
-            <img src="/assets/briefing.png" alt="Briefing" className="max-h-full max-w-full object-contain rounded-xl" />
+            <img
+              src={briefingThumbnail || "/assets/briefing.png"}
+              alt="Briefing"
+              className="max-h-full max-w-full object-contain rounded-xl"
+            />
           </Card>
         </div>
         {showDictionary && (
@@ -132,7 +142,7 @@ const CoursePage = () => {
           </div>
         )}
 
-        <div className="md:col-span-2 flex flex-col h-full">
+        <div className="md:col-span-2 flex flex-col h-full md:pb-0 pb-12 ">
           <AssetsTable assets={data.assets} />
         </div>
       </section>
