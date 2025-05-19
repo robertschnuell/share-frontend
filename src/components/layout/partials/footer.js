@@ -25,7 +25,7 @@ export default function Footer() {
        
         <div className="flex items-center gap-2 flex-col ">
 
-          <NextLink href="https://github.com/rfws" target="_blank" rel="noopener noreferrer" className="ml-2">
+          <NextLink href="https://github.com/robertschnuell/share-frontend" target="_blank" rel="noopener noreferrer" className="ml-2">
             <RiGithubFill className="w-6 h-6" />
           </NextLink>
         </div>

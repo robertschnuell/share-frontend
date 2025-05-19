@@ -57,7 +57,7 @@ const CollectionPage = () => {
               return (
                 <TableRow key={child.id} className="bg-background">
                   <TableCell
-                    className="py-2 cursor-pointer"
+                    className="py-2 px-0 cursor-pointer"
                     onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/${child.slug}`)}
                   >
                     {content.title}

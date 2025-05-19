@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import getConfig from "next/config";
+import SiteHeader from "@/components/layout/partials/SiteHeader";
 
 const Teaching = () => {
   const router = useRouter();
@@ -32,15 +33,9 @@ const Teaching = () => {
 
   return (
     <div>
-      <h1>Teaching</h1>
-      <p>Welcome to the Teaching page!</p>
-      <p>Section: {id}</p>
-      {id && (
-        <div>
-          <h2>Section Data</h2>
-          <pre>{data ? JSON.stringify(data, null, 2) : "Loading..."}</pre>
-        </div>
-      )}
+      <SiteHeader showBackButton={false} title={id} />
+      <p>No public entries visible.</p>
+      
     </div>
   );
 };

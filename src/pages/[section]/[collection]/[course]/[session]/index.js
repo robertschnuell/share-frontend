@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { RiFullscreenLine, RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
 import getConfig from "next/config";
+import SiteHeader from "@/components/layout/partials/SiteHeader";
 
 function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
-  const gridRef = React.useRef(null);
+  const gridRef = useRef(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleKeyDown = (e) => {
       if (document.activeElement !== gridRef.current) return;
       if (e.key === "ArrowLeft") {
@@ -25,7 +26,7 @@ function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
   return (
     <div className="w-2/3 h-full flex flex-col">
       <div
-        className="p-6 bg-background border-none overflow-y-auto flex-1"
+        className="p-0 bg-background border-none overflow-y-auto flex-1"
         tabIndex={0}
         ref={gridRef}
         style={{ outline: "none" }}
@@ -42,7 +43,7 @@ function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
                 <img
                   src={slide.thumbnail}
                   alt={slide.title}
-                  className="w-[120px] h-24 object-contain rounded-2xl"
+                  className="w-[120px] h-24 object-contain rounded-xl"
                   style={{ background: "#f9f9f9" }}
                 />
               </div>
@@ -111,7 +112,7 @@ function SlidesSection({ slides, selectedIndex, setSelectedIndex }) {
       <SlidesGrid slides={slides} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
       <Separator orientation="vertical" className="mx-4" />
       <div className="w-1/3 flex flex-col items-center justify-center">
-        <Card className="w-full bg-background border border-muted p-4 relative flex items-center justify-center">
+        <Card className="w-full bg-background border border-muted p-4 relative flex rounded-xl items-center justify-center">
           {selectedSlide && (
             <img
               src={selectedSlide.thumbnail}
@@ -218,12 +219,18 @@ const SessionPage = () => {
 
   return (
     <div className="flex flex-col h-screen gap-4 overflow-hidden">
+      <div>
+      <SiteHeader
+        title={data.title}
+        subtitle={data.term || ""}
+        showBackButton={true}
+      />
       <Card className="flex flex-col justify-center items-start p-0 bg-background border-none">
-        <h1 className="text-3xl font-bold mb-2 text-foreground">{data.title}</h1>
         <div className="max-w-2xl">
           <p className="text-muted-foreground">{data.abstract}</p>
         </div>
       </Card>
+      </div>
       <Separator className="mt-4 mb-4" />
       <SlidesSection slides={slides} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
     </div>

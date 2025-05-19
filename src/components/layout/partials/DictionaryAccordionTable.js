@@ -18,7 +18,7 @@ const DictionaryAccordionTable = ({
 
   return (
     <div>
-      {/* No searchbar in compact mode */}
+
       <Accordion
         type="single"
         collapsible
@@ -28,7 +28,6 @@ const DictionaryAccordionTable = ({
       >
         {data.length ? (
           data.map((item) => {
-            const isLong = item.term.length > 25;
             const isVeryLong = item.term.length > 40;
             const displayTerm = isVeryLong
               ? item.term.slice(0, 40) + "..."
@@ -38,14 +37,10 @@ const DictionaryAccordionTable = ({
               <AccordionItem key={item.term} value={item.term}>
                 <AccordionTrigger>
                   <div className="flex flex-row items-center w-full gap-2">
-                    <span
-                      className={`font-semibold text-foreground ${
-                        isLong ? "text-xs" : ""
-                      }`}
-                    >
+                    <span className="font-normal text-foreground text-xs">
                       {isOpen ? item.term : displayTerm}
                     </span>
-                    {/* Desktop: show badges in trigger */}
+
                     <div className="hidden sm:flex flex-wrap gap-1 ml-auto">
                       {item.tags.map((tag) => (
                         <Badge

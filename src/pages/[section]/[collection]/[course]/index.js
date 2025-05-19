@@ -18,6 +18,7 @@ const CoursePage = () => {
   const course = router?.query?.course || "";
   const [data, setData] = useState({});
 
+  console.log(data)
 
   const lang = "de"
 
@@ -32,7 +33,6 @@ const CoursePage = () => {
           const res = await fetch(url);
           if (res.ok) {
             const data = await res.json();
-            console.log(data)
             setData(data);
           } else {
             setData({ error: "Failed to fetch data" });
@@ -69,7 +69,7 @@ const CoursePage = () => {
 
   return (
     <div>
-      <SiteHeader title={"oldData?.title"} subtitle={"oldData?.term"} />
+      <SiteHeader title={data?.title || ""} subtitle={data?.[lang]?.term.toLowerCase() || ""} />
 
       <SessionCards
         title="sessions"

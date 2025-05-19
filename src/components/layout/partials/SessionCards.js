@@ -4,7 +4,6 @@ import { RiLock2Line } from "@remixicon/react";
 
 const SessionCards = ({ title = "", content }) => {
   const router = useRouter();
-  console.log(content);
 
   return (
     <div className="flex flex-col gap-2">
@@ -16,7 +15,6 @@ const SessionCards = ({ title = "", content }) => {
           content.length > 0 &&
           content.map((c) => (
             <div key={c.id} className="flex flex-col items-center min-w-[180px]">
-              {console.log("c", c)}
               <Card
                 className={`flex items-center justify-center rounded-2xl border border-muted shadow-none bg-transparent w-full aspect-square ${
                   c.titleimage || c.image ? "cursor-pointer" : "cursor-not-allowed opacity-60"
