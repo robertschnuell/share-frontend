@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import getConfig from "next/config";
+import { RiCloseLine } from "@remixicon/react";
 
 const FullscreenSlide = () => {
   const router = useRouter();
   const { section, collection, course, session, slide } = router.query;
   const [slideData, setSlideData] = useState(null);
   const [slidesCount, setSlidesCount] = useState(0);
+  const [showClose, setShowClose] = useState(false);
+  const hideTimeout = useRef(null);
 
   const lang = "de";
   const config = getConfig().publicRuntimeConfig;
@@ -20,7 +23,6 @@ const FullscreenSlide = () => {
         if (!res.ok) return;
         const json = await res.json();
 
-        // Find the slides child (usually only one)
         const slidesChild = Array.isArray(json.children)
           ? json.children.find(child => child.slug === "slides")
           : null;
@@ -40,7 +42,6 @@ const FullscreenSlide = () => {
           }
         }
 
-        // Normalize slides for the UI
         const slides = slidesArr.map(slide => {
           if (slide.content && slide.content.image) {
             return {
@@ -102,10 +103,50 @@ const FullscreenSlide = () => {
     return () => window.removeEventListener("keydown", handleKey);
   }, [router, slide, slidesCount]);
 
+  // Show/hide close icon on desktop based on mouse movement
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const handleMouseMove = () => {
+      if (window.innerWidth < 768) return; // Only for desktop
+      setShowClose(true);
+      if (hideTimeout.current) clearTimeout(hideTimeout.current);
+      hideTimeout.current = setTimeout(() => setShowClose(false), 1000);
+    };
+
+    if (window.innerWidth >= 768) {
+      window.addEventListener("mousemove", handleMouseMove);
+    }
+
+    return () => {
+      if (hideTimeout.current) clearTimeout(hideTimeout.current);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
+
+  // Always show on mobile
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.innerWidth < 768) {
+      setShowClose(true);
+    }
+  }, []);
+
   if (!slideData) return null;
 
   return (
     <div className="fixed inset-0 bg-black flex items-center justify-center z-50">
+      {/* Close icon: always on mobile, on desktop only if mouse is moving */}
+      {showClose && (
+        <button
+          type="button"
+          className="absolute top-4 right-4 z-10 bg-black/60 rounded-full p-2"
+          aria-label="Schließen"
+          onClick={() => router.back()}
+          style={{ lineHeight: 0 }}
+        >
+          <RiCloseLine className="w-7 h-7 text-white" />
+        </button>
+      )}
       <img
         src={slideData.thumbnail}
         alt={slideData.title}

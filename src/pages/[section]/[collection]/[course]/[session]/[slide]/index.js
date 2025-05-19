@@ -5,7 +5,7 @@ const SlidePage = () => {
     
     return (
         <div>
-       aksldkla
+       nothing to see here for now
         </div>
     );
     }
