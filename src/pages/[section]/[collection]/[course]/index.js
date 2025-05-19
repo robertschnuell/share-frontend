@@ -8,19 +8,16 @@ import DictionaryView from "@/components/layout/partials/DictionaryView";
 import getConfig from "next/config";
 import AssetsTable from "@/components/layout/partials/AssetsTable";
 
-
-
 const CoursePage = () => {
-
   const router = useRouter();
   const section = router?.query?.section || "";
   const collection = router?.query?.collection || "";
   const course = router?.query?.course || "";
   const [data, setData] = useState({});
 
-  console.log(data)
+  console.log(data);
 
-  const lang = "de"
+  const lang = "de";
 
   const config = getConfig().publicRuntimeConfig;
 
@@ -28,7 +25,7 @@ const CoursePage = () => {
     if (section && collection) {
       const fetchData = async () => {
         try {
-          const url = `${config.api.host}:${config.api.port}/${section}/${collection}/${course}.json`;
+          const url = `${config.api.host}:${config.api.port}/${lang}/${section}/${collection}/${course}.json`;
           console.log("url", url);
           const res = await fetch(url);
           if (res.ok) {
@@ -45,31 +42,36 @@ const CoursePage = () => {
     }
   }, [section, collection, config]);
 
-
-
-
-
   const [dictionary, setDictionary] = useState([]);
-
+  const [showDictionary, setShowDictionary] = useState(false);
 
   useEffect(() => {
-
-
-    fetch("/data/cad-2d-3d_dictionary.json")
-      .then((res) => res.json())
-      .then((dict) => {
-        const arr = Object.entries(dict).map(([term, value]) => ({
-          term,
-          description: value.description,
-          tags: value.tags,
-        }));
-        setDictionary(arr);
-      });
-  }, []);
+    // Only fetch dictionary if data.dictionary and data.dictionary.url exist
+    if (data && data.dictionary && data.dictionary.id) {
+      setShowDictionary(true);
+      fetch(`${config.api.host}:${config.api.port}/${lang}/${data.dictionary.id}.json`)
+        .then((res) => res.json())
+        .then((dict) => {
+          const arr = Array.isArray(dict.entries)
+            ? dict.entries.map((entry) => ({
+                term: entry.name,
+                description: entry.beschreibung,
+                tags: entry.tags,
+                session: entry.session,
+                image: entry.bild,
+              }))
+            : [];
+          setDictionary(arr);
+        });
+    } else {
+      setShowDictionary(false);
+      setDictionary([]);
+    }
+  }, [data]);
 
   return (
     <div>
-      <SiteHeader title={data?.title || ""} subtitle={data?.[lang]?.term.toLowerCase() || ""} />
+      <SiteHeader title={data?.title || ""} subtitle={data?.[lang]?.term?.toLowerCase() || ""} />
 
       <SessionCards
         title="sessions"
@@ -78,7 +80,7 @@ const CoursePage = () => {
             ? Object.values(data.children)
                 .map((child) => {
                   const translation = child.translations?.[lang]?.content;
-                  return {...translation, ...{titleimage:child?.titleimage, id: child.slug}} || child.content || {};
+                  return { ...translation, ...{ titleimage: child?.titleimage, id: child.slug } } || child.content || {};
                 })
                 .sort((a, b) => {
                   const kwA = parseInt(a.kw) || 0;
@@ -99,7 +101,7 @@ const CoursePage = () => {
               title="Expand Dictionary"
               onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/briefing`)}
             >
-              <span className="sr-only">Expand Dictionary</span>
+              <span className="sr-only">Expand Briefing</span>
               <RiExpandDiagonalLine className="w-5 h-5 text-muted-foreground" />
             </button>
           </div>
@@ -107,29 +109,30 @@ const CoursePage = () => {
             <img src="/assets/briefing.png" alt="Briefing" className="max-h-full max-w-full object-contain rounded-xl" />
           </Card>
         </div>
-
-        <div className="md:col-span-5 flex flex-col h-full">
-          <div className="mb-3 font-semibold text-muted flex items-center justify-between">
-            <span>fachwortindex</span>
-            <button
-              type="button"
-              className="ml-auto flex items-center justify-center h-6"
-              title="Expand Dictionary"
-              onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/dictionary`)}
-            >
-              <span className="sr-only">Expand Dictionary</span>
-              <RiExpandDiagonalLine className="w-5 h-5 text-muted-foreground" />
-            </button>
-          </div>
-          <Card className="rounded-xl border border-muted bg-background p-4 md:p-6 flex-1 h-full min-h-0">
-            <div className="h-full min-h-0 max-h-[25vh] overflow-y-auto">
-              <DictionaryView content={dictionary || []} fullscreen={false} />
+        {showDictionary && (
+          <div className="md:col-span-5 flex flex-col h-full">
+            <div className="mb-3 font-semibold text-muted flex items-center justify-between">
+              <span>fachwortindex</span>
+              <button
+                type="button"
+                className="ml-auto flex items-center justify-center h-6"
+                title="Expand Dictionary"
+                onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/dictionary`)}
+              >
+                <span className="sr-only">Expand Dictionary</span>
+                <RiExpandDiagonalLine className="w-5 h-5 text-muted-foreground" />
+              </button>
             </div>
-          </Card>
-        </div>
+
+            <Card className="rounded-xl border border-muted bg-background p-4 md:p-6 flex-1 h-full min-h-0">
+              <div className="h-full min-h-0 max-h-[25vh] overflow-y-auto">
+                <DictionaryView content={dictionary || []} fullscreen={false} />
+              </div>
+            </Card>
+          </div>
+        )}
 
         <div className="md:col-span-2 flex flex-col h-full">
-          {/* Use AssetsTable component */}
           <AssetsTable assets={data.assets} />
         </div>
       </section>
