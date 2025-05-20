@@ -31,9 +31,9 @@ const BriefingPage = () => {
     <div className="h-full flex flex-col">
       <SiteHeader title="briefing" />
       <div className="flex-1 w-full flex flex-col md:flex-row gap-8" style={{ minHeight: 0, height: "0" }}>
-        {/* Right 1/3: Portrait Card (mobile: order-1, desktop: order-2) */}
+
         <div className="w-full md:w-1/3 flex items-start h-full max-h-full order-1 md:order-2 mb-4 md:mb-0">
-          <Card className="w-full rounded-2xl h-[200px] md:h-full flex items-center justify-center p-0 overflow-hidden">
+          <Card className="w-full md:mt-8 rounded-2xl h-[200px] md:h-full flex items-center justify-center p-0 overflow-hidden">
             <img
               src={
                 typeof window !== "undefined" && window.innerWidth < 768
@@ -46,16 +46,16 @@ const BriefingPage = () => {
             />
           </Card>
         </div>
-        {/* Left 2/3: Text (mobile: order-2, desktop: order-1) */}
+
         <div className="md:w-2/3 w-full flex flex-col pr-2 h-full max-h-full overflow-y-auto order-2 md:order-1">
-          <div className="w-full max-w-[750px]">
+          <div className="w-full ">
             <h1 className="text-5xl md:text-8xl font-bold mb-2">{briefing.name}</h1>
-            <h2 className="text-2xl md:text-4xl front-regular italic mb-4">{briefing.subtitle}</h2>
-            <div className="mb-6">
+            <h2 className="text-2xl md:text-4xl front-regular text-muted mb-4 md:max-w-[750px]">{briefing.subtitle}</h2>
+            <div className="mb-6 md:w-5/6">
               <h3 className="text-lg font-bold mt-8 mb-2">Einleitung</h3>
-              <div className="mb-6 leading-relaxed">{briefing.intro}</div>
-              <h3 className="text-lg font-bold mt-8 mb-2">Inhalt</h3>
-              <div className="flex flex-col gap-4">
+              <div className="mb-6 leading-relaxed  md:columns-2">{briefing.intro}</div>
+              <h3 className="text-lg font-bold mt-8 mb-2 md:mb-4">Inhalt</h3>
+              <div className="flex flex-col gap-4 md:grid md:grid-cols-2">
                 {Array.isArray(briefing.content) &&
                   briefing.content.map((item, idx) => (
                     <div
