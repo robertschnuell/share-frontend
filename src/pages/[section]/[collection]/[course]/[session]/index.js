@@ -35,7 +35,7 @@ function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
   }, [selectedIndex]);
 
   return (
-    <div className="md:w-2/3 h-full flex flex-col">
+    <div className=" h-full flex flex-col">
       <div
         className="p-0 bg-background border-none overflow-y-auto flex-1"
         tabIndex={0}
@@ -46,12 +46,9 @@ function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
           className="
             grid
             grid-cols-2
-            [@media(min-width:400px)]:grid-cols-3
-            sm:grid-cols-3
-            md:grid-cols-4
-            lg:grid-cols-5
-            xl:grid-cols-6
+            md:grid-cols-5
             gap-4
+            gap-y-8
           "
         >
           {slides.map((slide, idx) => (
@@ -64,23 +61,21 @@ function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
                 className={`
                   cursor-pointer rounded-2xl border
                   ${selectedIndex === idx ? "border-foreground" : "border-muted"}
-                  bg-background p-2 flex flex-col items-center transition
+                  bg-background p-0 flex flex-col items-center transition
                   w-full
                 `}
                 onClick={() => setSelectedIndex(idx)}
               >
-                <img
-                  src={slide.thumbnail}
-                  alt={slide.title}
-                  className="
-                    w-full
-                    max-w-[120px]
-                    h-24
-                    object-contain
-                    rounded-xl
+                <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
+                  <img
+                    src={slide.thumbnail}
+                    alt={slide.title}
+                    className="
+                      absolute inset-0 w-full h-full object-cover rounded-xl
                     "
-                  style={{ background: "#f9f9f9" }}
-                />
+                    style={{ background: "#f9f9f9" }}
+                  />
+                </div>
               </div>
               <div className={`mt-2 text-xs ${selectedIndex === idx ? "text-foreground font-medium" : "text-muted-foreground"}`}>
                 {slide.title}
@@ -134,11 +129,11 @@ function SlidesSection({ slides, selectedIndex, setSelectedIndex }) {
   const router = useRouter();
   const selectedSlide = slides[selectedIndex];
 
-  // Swipe gesture state
+
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
-  // Handle swipe gestures on mobile
+
   const handleTouchStart = (e) => {
     if (window.innerWidth >= 768) return;
     touchStartX.current = e.touches[0].clientX;
@@ -155,9 +150,9 @@ function SlidesSection({ slides, selectedIndex, setSelectedIndex }) {
       const deltaX = touchEndX.current - touchStartX.current;
       if (Math.abs(deltaX) > 50) {
         if (deltaX < 0 && selectedIndex < slides.length - 1) {
-          setSelectedIndex(selectedIndex + 1); // swipe left: next
+          setSelectedIndex(selectedIndex + 1); 
         } else if (deltaX > 0 && selectedIndex > 0) {
-          setSelectedIndex(selectedIndex - 1); // swipe right: prev
+          setSelectedIndex(selectedIndex - 1);
         }
       }
     }
@@ -177,17 +172,17 @@ function SlidesSection({ slides, selectedIndex, setSelectedIndex }) {
       <div className="w-full md:w-2/3 flex flex-col">
         <SlidesGrid slides={slides} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
       </div>
-      {/* Separator: horizontal on mobile, vertical on desktop */}
-      <Separator orientation="horizontal" className="block md:hidden my-4" />
-      <Separator orientation="vertical" className="hidden md:block mx-4" />
-      <div className="w-full md:w-1/3 flex flex-col items-center justify-center">
-        <Card className="w-full bg-background border border-muted p-4 relative flex rounded-xl items-center justify-center">
+
+      <Separator orientation="horizontal" className="block md:hidden my-4 bg-muted" />
+      <Separator orientation="vertical" className="hidden md:block mx-4 bg-muted" />
+      <div className="w-full md:w-1/3 flex flex-col items-center justify-start">
+        <Card className="w-full bg-background border border-muted p-0 relative flex rounded-xl items-center justify-center">
           {selectedSlide && (
             <img
               src={selectedSlide.thumbnail}
               alt={selectedSlide.title}
-              className="w-full object-contain rounded-xl shadow"
-              // Swipe handlers for mobile
+              className="w-full object-cover rounded-xl shadow"
+   
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
@@ -287,16 +282,16 @@ const SessionPage = () => {
       <div>
       <SiteHeader
         title={data.title}
-        subtitle={data.term || ""}
+        subtitle={"KW " + data.kw || ""}
         showBackButton={true}
       />
       <Card className="flex flex-col justify-center items-start p-0 bg-background border-none">
-        <div className="max-w-2xl">
-          <p className="text-muted-foreground">{data.abstract}</p>
+        <div className="max-w-xl">
+          <p className="text-foreground">{data.abstract}</p>
         </div>
       </Card>
       </div>
-      <Separator className="mt-4 mb-4" />
+      <Separator className="mt-4 mb-4 bg-muted" />
       <SlidesSection slides={slides} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
     </div>
   );

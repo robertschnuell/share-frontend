@@ -78,7 +78,7 @@ const CoursePage = () => {
   return (
     <div>
       <SiteHeader title={data?.title || ""} subtitle={data?.[lang]?.term || ""} />
-    {console.log('asdasdas',data.children)}
+   
       <SessionCards
         title="Sessions"
         content={
