@@ -39,7 +39,6 @@ const CollectionPage = () => {
     }
   }, [section, collection, config]);
 
-  // Helper to format date as DD.MM.YYYY
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
     const d = new Date(dateStr);
@@ -51,7 +50,6 @@ const CollectionPage = () => {
     });
   };
 
-  // Generate date string based on language and begin/end fields
   const generateDate = () => {
     const begin = data?.[lang]?.begin || data?.begin || "";
     const end = data?.[lang]?.end || data?.end || "";
@@ -80,7 +78,7 @@ const CollectionPage = () => {
               const translation = child.translations?.[lang]?.content;
               const content = translation || child.content || {};
               return (
-                <TableRow key={child.id} className="bg-background">
+                <TableRow key={child.id} className="bg-background text-base border-muted">
                   <TableCell
                     className="py-2 px-0 cursor-pointer"
                     onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/${child.slug}`)}
@@ -88,7 +86,7 @@ const CollectionPage = () => {
                     {content.title}
                   </TableCell>
                   <TableCell
-                    className="py-2 text-right cursor-pointer"
+                    className="p-0 text-right cursor-pointer"
                     onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/${child.slug}`)}
                   >
                     {content.term || ""}

@@ -19,7 +19,7 @@ const AssetsTable = ({ assets }) => {
 
   return (
     <>
-      <div className="mb-3 font-semibold text-muted">assets</div>
+      <div className="mb-3 font-semibold text-muted">Assets</div>
       <Card className="rounded-xl border border-muted bg-background p-0 pb-4 md:p-0  flex-1 h-full min-h-0">
         <div className="h-full min-h-0 max-h-[30vh] md:max-h-full overflow-y-auto">
           <div className="w-full overflow-x-auto">

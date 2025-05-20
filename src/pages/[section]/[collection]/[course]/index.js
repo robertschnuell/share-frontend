@@ -77,10 +77,10 @@ const CoursePage = () => {
 
   return (
     <div>
-      <SiteHeader title={data?.title || ""} subtitle={data?.[lang]?.term?.toLowerCase() || ""} />
+      <SiteHeader title={data?.title || ""} subtitle={data?.[lang]?.term || ""} />
 
       <SessionCards
-        title="sessions"
+        title="Sessions"
         content={
           data.children
             ? Object.values(data.children)
@@ -100,7 +100,7 @@ const CoursePage = () => {
       <section className="grid grid-cols-1 md:grid-cols-10 gap-12 mt-12 w-full  md:max-h-[80vh]">
         <div className="md:col-span-3 flex flex-col h-full">
           <div className="mb-3 font-semibold text-muted flex items-center justify-between">
-            <span>semesterthema</span>
+            <span>Sidebaremesterthema</span>
             <button
               type="button"
               className="ml-auto flex items-center justify-center h-6"
@@ -122,7 +122,7 @@ const CoursePage = () => {
         {showDictionary && (
           <div className="md:col-span-5 flex flex-col h-full">
             <div className="mb-3 font-semibold text-muted flex items-center justify-between">
-              <span>fachwortindex</span>
+              <span>Fachwortindex</span>
               <button
                 type="button"
                 className="ml-auto flex items-center justify-center h-6"
