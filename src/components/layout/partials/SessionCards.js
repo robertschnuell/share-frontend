@@ -17,7 +17,7 @@ const SessionCards = ({ title = "", content }) => {
             <div key={c.id} className="flex flex-col items-center min-w-[180px]">
           
               <Card
-                className={`flex items-center justify-center rounded-2xl border  shadow-none bg-transparent w-full aspect-square ${
+                className={`flex items-center justify-center p-0 rounded-2xl border  shadow-none bg-transparent w-full aspect-square ${
                   c.titleimage || c.image ? "cursor-pointer" : "cursor-not-allowed opacity-60 text-muted-foreground border-muted"
                 }`}
                 onClick={c.titleimage || c.image ? () => router.push(`${router.asPath.replace(/\/$/, "")}/${c.id}`) : undefined}
@@ -25,7 +25,11 @@ const SessionCards = ({ title = "", content }) => {
                 aria-disabled={!(c.titleimage || c.image)}
               >
                 {c.titleimage || c.image ? (
-                  <img src={c.titleimage || c.image} alt={c.title} className="object-contain h-40 w-40 mx-auto" />
+                  <img
+                    src={c.titleimage || c.image}
+                    alt={c.title}
+                    className="object-cover w-full h-full rounded-2xl"
+                  />
                 ) : (
                   <div className="flex flex-col items-center justify-center w-full h-full">
                     <RiLock2Line className="w-6 h-6 text-muted-foreground mb-1" />
