@@ -3,7 +3,8 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import DictionaryAccordionTable from "./DictionaryAccordionTable";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 
 const DictionaryView = ({ content, fullscreen = true }) => {
   const [globalFilter, setGlobalFilter] = useState("");
@@ -51,7 +52,7 @@ const DictionaryView = ({ content, fullscreen = true }) => {
     <>
       <div className="my-4 flex gap-2 flex-shrink-0">
         <Input
-          placeholder="Search term or description..."
+          placeholder="Search term or description …"
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
           className="max-w-sm"
@@ -66,58 +67,71 @@ const DictionaryView = ({ content, fullscreen = true }) => {
         {/* Sidebar */}
         <div className="w-full md:w-1/2 flex-1 md:h-auto md:min-h-0 md:max-h-none md:flex-shrink-0">
           <div className="border-t border-b rounded-md bg-background h-[50vh] md:h-[calc(100vh-140px)] overflow-y-auto scrollbar-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <ul>
-              {filteredData.length ? (
-                filteredData.map((item) => (
-                  <li
-                    key={item.term}
-                    className={`flex flex-col md:flex-row items-start md:items-center px-4 py-2 border-b last:border-b-0 cursor-pointer transition-colors text-xs ${
-                      selectedTerm === item.term && !isMobile ? "bg-muted font-semibold" : "hover:bg-accent"
-                    }`}
-                    onClick={() => {
-                      setSelectedTerm(item.term);
-                      if (isMobile) setDialogOpen(true);
-                    }}
-                  >
-                    <span className="truncate w-full md:w-auto">{item.term}</span>
-                    <span
-                      className="
-                        flex flex-wrap gap-1 ml-0 mt-1 md:ml-auto md:mt-0
-                      "
+            <Table>
+              <TableBody>
+                {filteredData.length ? (
+                  filteredData.map((item) => (
+                    <TableRow
+                      key={item.term}
+                      className={`cursor-pointer text-xs font-semibold border-muted transition-colors ${
+                        selectedTerm === item.term && !isMobile ? "bg-muted" : ""
+                      }`}
+                      onClick={() => {
+                        setSelectedTerm(item.term);
+                        if (isMobile) setDialogOpen(true);
+                      }}
                     >
-                      {item.tags.map((tag) => (
-                        <Badge
-                          key={tag}
-                          variant="outline"
-                          className="cursor-pointer text-[10px] px-1 py-0.5 h-4"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setTagFilter(tag);
-                          }}
-                        >
-                          {tag}
-                        </Badge>
-                      ))}
-                    </span>
-                  </li>
-                ))
-              ) : (
-                <li className="text-center py-8 text-muted-foreground text-xs">No results.</li>
-              )}
-            </ul>
+                      {/* Term cell: block & left on mobile, table-cell & left on desktop */}
+                      <TableCell className="block md:table-cell w-full md:w-auto pl-0 pb-0 align-top md:pb-0 text-left">
+                        <span className="block text-left">{item.term}</span>
+                      </TableCell>
+                      {/* Tags cell: block & left on mobile, table-cell & right on desktop */}
+                      <TableCell className="block md:table-cell w-full md:w-auto pl-0 pr-0 pt-2 md:py-2  text-left md:text-right">
+                        <span className="flex flex-wrap gap-1 justify-start md:justify-end mt-1 md:mt-0 w-full">
+                          {item.tags.map((tag) => (
+                            <Badge
+                              key={tag}
+                              variant="outline"
+                              className="cursor-pointer text-xs border-muted px-3 py-3 font-normal h-4"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setTagFilter(tag);
+                              }}
+                            >
+                              {tag}
+                            </Badge>
+                          ))}
+                        </span>
+                      </TableCell>
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell colSpan={2} className="text-center py-8 text-muted-foreground text-xs">
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </TableBody>
+            </Table>
           </div>
         </div>
         {/* Detail Card (desktop only) */}
-        <div className="hidden md:flex md:w-1/2 w-full items-center justify-center min-h-0">
+        <div className="hidden md:flex md:w-1/2 w-full items-center justify-center max-h-full ">
           {selected ? (
-            <Card className="w-full max-w-xl mx-auto">
-              <CardHeader>
+            <Card className="w-full max-w-xl mx-auto aspect-[1.414/1] flex flex-col justify-center">
+              <CardHeader className="pb-2">
                 <CardTitle>{selected.term}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <div className="mb-2 flex flex-wrap gap-1">
+              <CardContent className="flex-1 overflow-auto">
+                <div className="mb-4 flex flex-wrap gap-1">
                   {selected.tags.map((tag) => (
-                    <Badge key={tag} variant="outline" className="cursor-pointer" onClick={() => setTagFilter(tag)}>
+                    <Badge
+                      key={tag}
+                      variant="outline"
+                      className="cursor-pointer text-muted text-xs border-muted  px-3 py-3 font-normal h-4 "
+                      onClick={() => setTagFilter(tag)}
+                    >
                       {tag}
                     </Badge>
                   ))}
@@ -139,24 +153,27 @@ const DictionaryView = ({ content, fullscreen = true }) => {
             if (!open) setSelectedTerm(null);
           }}
         >
-          <DialogContent className="w-auto p-4 rounded-2xl bg-foreground text-background">
+          <DialogContent className="w-4/5 aspect-square block  p-4 rounded-2xl bg-foreground text-background">
             {selected && (
               <>
-                <DialogHeader>
-                  <DialogTitle>{selected.term}</DialogTitle>
+                <DialogHeader className="mb-3">
+                  <DialogTitle className="text-left pb-0 w-2/3">{selected.term}</DialogTitle>
                 </DialogHeader>
-                <div className="mb-2 flex flex-wrap gap-1">
-                  {selected.tags.map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant="outline"
-                      className="cursor-pointer bg-background text-foreground border-foreground"
-                      onClick={() => setTagFilter(tag)}
-                    >
-                      {tag}
-                    </Badge>
-                  ))}
-                </div>
+                <DialogDescription className="mb-4">
+                  <div className="mb-2 mt-0 flex flex-wrap gap-1">
+                    {selected.tags.map((tag) => (
+                      <Badge
+                        key={tag}
+                        variant="outline"
+                        className=" cursor-pointer text-background border-foreground text-xs border-muted  px-3 py-3 font-normal h-4 "
+                        onClick={() => setTagFilter(tag)}
+                      >
+                        {tag}
+                      </Badge>
+                    ))}
+                  </div>
+                </DialogDescription>
+
                 <div>{selected.description}</div>
               </>
             )}

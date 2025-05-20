@@ -45,7 +45,7 @@ const DictionaryPage = () => {
   }, [router.query.section, router.query.collection, router.query.course, config]);
 
   return (
-    <div className="w-screen h-screen flex flex-col overflow-hidden">
+    <div className=" h-full overflow-hidden">
       <SiteHeader title={"Dictionary"} subtitle={title} />
       <DictionaryView content={data} />
     </div>
