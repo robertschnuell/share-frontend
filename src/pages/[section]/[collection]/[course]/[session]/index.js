@@ -67,14 +67,26 @@ function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
                 onClick={() => setSelectedIndex(idx)}
               >
                 <div className="relative w-full" style={{ aspectRatio: "16/9" }}>
-                  <img
-                    src={slide.thumbnail}
-                    alt={slide.title}
-                    className="
-                      absolute inset-0 w-full h-full object-cover rounded-xl
-                    "
-                    style={{ background: "#f9f9f9" }}
-                  />
+                  {/* Zeige Poster für Video, sonst Thumbnail */}
+                  {slide.type === "video" ? (
+                    <img
+                      src={slide.posterUrl}
+                      alt={slide.title}
+                      className="
+                        absolute inset-0 w-full h-full object-cover rounded-xl
+                      "
+                      style={{ background: "#f9f9f9" }}
+                    />
+                  ) : (
+                    <img
+                      src={slide.thumbnail}
+                      alt={slide.title}
+                      className="
+                        absolute inset-0 w-full h-full object-cover rounded-xl
+                      "
+                      style={{ background: "#f9f9f9" }}
+                    />
+                  )}
                 </div>
               </div>
               <div className={`mt-2 text-xs ${selectedIndex === idx ? "text-foreground font-medium" : "text-muted-foreground"}`}>
@@ -129,10 +141,17 @@ function SlidesSection({ slides, selectedIndex, setSelectedIndex }) {
   const router = useRouter();
   const selectedSlide = slides[selectedIndex];
 
-
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (selectedSlide && selectedSlide.type === "video" && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [selectedSlide]);
 
   const handleTouchStart = (e) => {
     if (window.innerWidth >= 768) return;
@@ -161,7 +180,8 @@ function SlidesSection({ slides, selectedIndex, setSelectedIndex }) {
   };
 
   const handleFullscreen = () => {
-    const slideId = selectedSlide?.id ?? String(selectedIndex);
+
+    const slideId =  String(selectedIndex);
     router.push({
       pathname: `${router.asPath.replace(/\/$/, "")}/${slideId}/fullscreen`
     });
@@ -172,21 +192,37 @@ function SlidesSection({ slides, selectedIndex, setSelectedIndex }) {
       <div className="w-full md:w-2/3 flex flex-col">
         <SlidesGrid slides={slides} selectedIndex={selectedIndex} setSelectedIndex={setSelectedIndex} />
       </div>
-
       <Separator orientation="horizontal" className="block md:hidden my-4 bg-muted" />
       <Separator orientation="vertical" className="hidden md:block mx-4 bg-muted" />
       <div className="w-full md:w-1/3 flex flex-col items-center justify-start">
         <Card className="w-full bg-background border border-muted p-0 relative flex rounded-xl items-center justify-center">
           {selectedSlide && (
-            <img
-              src={selectedSlide.thumbnail}
-              alt={selectedSlide.title}
-              className="w-full object-cover rounded-xl shadow"
-   
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            />
+            selectedSlide.type === "video" ? (
+              <video
+                ref={videoRef}
+                src={selectedSlide.videoUrl}
+                poster={selectedSlide.posterUrl}
+                controls={false}
+                autoPlay
+                muted={selectedSlide.muted}
+                loop={selectedSlide.loop}
+                preload={selectedSlide.preload}
+                className="w-full object-cover rounded-xl shadow"
+                style={{ background: "#000" }}
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              />
+            ) : (
+              <img
+                src={selectedSlide.thumbnail}
+                alt={selectedSlide.title}
+                className="w-full object-cover rounded-xl shadow"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+              />
+            )
           )}
         </Card>
         <SlideControls
@@ -256,9 +292,26 @@ const SessionPage = () => {
   }
 
   const slides = slidesArr.map(slide => {
+    // Video Slide
+    if (slide.type === "video" && slide.content && slide.content.url) {
+      return {
+        id: slide.id,
+        type: "video",
+        videoUrl: slide.content.url,
+        posterUrl: slide.content.posterUrl || "",
+        title: slide.content.caption || slide.content.alt || "Video",
+        autoplay: slide.content.autoplay === "true",
+        muted: slide.content.muted === "true",
+        loop: slide.content.loop === "true",
+        controls: slide.content.controls !== "false", // default true
+        preload: slide.content.preload || "auto"
+      };
+    }
+    // Image Slide
     if (slide.content && slide.content.image) {
       return {
         id: slide.id,
+        type: "image",
         thumbnail: Array.isArray(slide.content.image) ? slide.content.image[0] : slide.content.image,
         title: slide.content.caption || slide.content.alt || "Slide"
       };
@@ -266,12 +319,14 @@ const SessionPage = () => {
     if (slide.content && Array.isArray(slide.content.image)) {
       return {
         id: slide.id,
+        type: "image",
         thumbnail: slide.content.image[0],
         title: slide.content.caption || slide.content.alt || "Slide"
       };
     }
     return {
       id: slide.id,
+      type: "image",
       thumbnail: "",
       title: "Slide"
     };

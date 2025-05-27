@@ -10,6 +10,7 @@ const FullscreenSlide = () => {
   const [slidesCount, setSlidesCount] = useState(0);
   const [showClose, setShowClose] = useState(false);
   const hideTimeout = useRef(null);
+  const videoRef = useRef(null); // Video-Ref für Autoplay
 
   const lang = "de";
   const config = getConfig().publicRuntimeConfig;
@@ -42,10 +43,26 @@ const FullscreenSlide = () => {
           }
         }
 
+        // Mapping für Video und Image
         const slides = slidesArr.map(slide => {
+          if (slide.type === "video" && slide.content && slide.content.url) {
+            return {
+              id: slide.id,
+              type: "video",
+              videoUrl: slide.content.url,
+              posterUrl: slide.content.posterUrl || "",
+              title: slide.content.caption || slide.content.alt || "Video",
+              autoplay: slide.content.autoplay === "true",
+              muted: slide.content.muted === "true",
+              loop: slide.content.loop === "true",
+              controls: false,
+              preload: slide.content.preload || "auto"
+            };
+          }
           if (slide.content && slide.content.image) {
             return {
               id: slide.id,
+              type: "image",
               thumbnail: Array.isArray(slide.content.image) ? slide.content.image[0] : slide.content.image,
               title: slide.content.caption || slide.content.alt || "Slide"
             };
@@ -53,12 +70,14 @@ const FullscreenSlide = () => {
           if (slide.content && Array.isArray(slide.content.image)) {
             return {
               id: slide.id,
+              type: "image",
               thumbnail: slide.content.image[0],
               title: slide.content.caption || slide.content.alt || "Slide"
             };
           }
           return {
             id: slide.id,
+            type: "image",
             thumbnail: "",
             title: "Slide"
           };
@@ -74,6 +93,14 @@ const FullscreenSlide = () => {
     };
     fetchData();
   }, [section, collection, course, session, slide, config]);
+
+  // Autoplay Video wenn ausgewählt
+  useEffect(() => {
+    if (slideData && slideData.type === "video" && videoRef.current) {
+      videoRef.current.currentTime = 0;
+      videoRef.current.play().catch(() => {});
+    }
+  }, [slideData]);
 
   useEffect(() => {
     const handleKey = (e) => {
@@ -147,11 +174,26 @@ const FullscreenSlide = () => {
           <RiCloseLine className="w-7 h-7 text-white" />
         </button>
       )}
-      <img
-        src={slideData.thumbnail}
-        alt={slideData.title}
-        className="max-w-full max-h-full object-contain"
-      />
+      {slideData.type === "video" ? (
+        <video
+          ref={videoRef}
+          src={slideData.videoUrl}
+          poster={slideData.posterUrl}
+          controls={false}
+          autoPlay
+          muted={slideData.muted}
+          loop={slideData.loop}
+          preload={slideData.preload}
+          className="max-w-full max-h-full object-contain bg-black"
+          style={{ background: "#000" }}
+        />
+      ) : (
+        <img
+          src={slideData.thumbnail}
+          alt={slideData.title}
+          className="max-w-full max-h-full object-contain"
+        />
+      )}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white text-lg bg-black/60 px-4 py-2 rounded">
         {slideData.title}
       </div>
