@@ -2,7 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { useRouter } from "next/router";
 import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { RiFullscreenLine, RiArrowLeftSLine, RiArrowRightSLine } from "@remixicon/react";
+import { RiFullscreenLine, RiArrowLeftSLine, RiArrowRightSLine, RiPlayLine, RiFileTextLine, RiFileZipLine } from "@remixicon/react";
 import getConfig from "next/config";
 import SiteHeader from "@/components/layout/partials/SiteHeader";
 
@@ -24,7 +24,7 @@ function SlidesGrid({ slides, selectedIndex, setSelectedIndex }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [setSelectedIndex, slides.length]);
 
-  // Scroll to selected slide on mobile when selectedIndex changes
+
   useEffect(() => {
     if (typeof window !== "undefined" && window.innerWidth < 768) {
       const ref = slideRefs.current[selectedIndex];
@@ -292,7 +292,7 @@ const SessionPage = () => {
   }
 
   const slides = slidesArr.map(slide => {
-    // Video Slide
+
     if (slide.type === "video" && slide.content && slide.content.url) {
       return {
         id: slide.id,
@@ -307,7 +307,7 @@ const SessionPage = () => {
         preload: slide.content.preload || "auto"
       };
     }
-    // Image Slide
+
     if (slide.content && slide.content.image) {
       return {
         id: slide.id,
@@ -332,6 +332,16 @@ const SessionPage = () => {
     };
   });
 
+
+  const scriptFile =
+    (lang === "de" && data.script_de?.fileUrl) ||
+    (lang === "en" && data.script_en?.fileUrl) ||
+    null;
+  const slidesFile =
+    (lang === "de" && data.slides_de?.fileUrl) ||
+    (lang === "en" && data.slides_en?.fileUrl) ||
+    null;
+
   return (
     <div className="flex flex-col md:h-screen gap-4 overflow-hidden">
       <div>
@@ -343,6 +353,69 @@ const SessionPage = () => {
       <Card className="flex flex-col justify-center items-start p-0 bg-background border-none">
         <div className="max-w-xl">
           <p className="text-foreground">{data.abstract}</p>
+
+          <div className="flex gap-2 mt-4">
+            {/* Play Button */}
+            <button
+              type="button"
+              className="flex items-center gap-2 px-4 py-2 rounded border border-primary bg-primary-foreground text-primary font-medium shadow transition"
+              onClick={() => {
+                if (slides.length > 0) {
+                  router.push({
+                    pathname: `${router.asPath.replace(/\/$/, "")}/0/fullscreen`
+                  });
+                }
+              }}
+            >
+              <RiPlayLine className="w-5 h-5" />
+              Play
+            </button>
+            {/* Script Button */}
+            {scriptFile ? (
+              <a
+                href={scriptFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded border border-primary bg-primary-foreground text-primary font-medium shadow transition"
+                style={{ color: "#171717" }}
+                download
+              >
+                <RiFileTextLine className="w-5 h-5" style={{ color: "#171717" }} />
+                Script
+              </a>
+            ) : (
+              <span
+                className="flex items-center gap-2 px-4 py-2 rounded border border-muted text-muted-foreground font-medium pointer-events-none select-none"
+                style={{ background: "transparent" }}
+              >
+                <RiFileTextLine className="w-5 h-5" />
+                Script
+              </span>
+            )}
+            {/* Slides Button */}
+            {slidesFile ? (
+              <a
+                href={slidesFile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2 rounded border border-primary bg-primary-foreground text-primary font-medium shadow transition"
+                style={{ color: "#171717" }}
+                download
+              >
+                <RiFileZipLine className="w-5 h-5" style={{ color: "#171717" }} />
+                Slides
+              </a>
+            ) : (
+              <span
+                className="flex items-center gap-2 px-4 py-2 rounded border border-muted text-muted-foreground font-medium pointer-events-none select-none"
+                style={{ background: "transparent" }}
+              >
+                <RiFileZipLine className="w-5 h-5" />
+                Slides
+              </span>
+            )}
+          </div>
+          {/* --- Ende Button-Leiste --- */}
         </div>
       </Card>
       </div>
