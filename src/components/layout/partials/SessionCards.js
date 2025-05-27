@@ -40,7 +40,7 @@ const SessionCards = ({ title = "", content }) => {
                 <div className={`font-medium text-sm text-left ${!(c.titleimage || c.image) ? "text-muted-foreground" : ""} `}>
                   {c.title}
                 </div>
-                <div className={`${!(c.titleimage || c.image) ? "text-muted-foreground" : ""} text-xs  text-left`}>KW {c.kw}</div>
+                <div className={`${!(c.titleimage || c.image) ? "text-muted-foreground" : ""} text-xs  text-left`}>{c.kw? "KW " : ""}{c.kw}</div>
               </div>
             </div>
           ))}

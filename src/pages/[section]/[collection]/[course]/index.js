@@ -70,15 +70,12 @@ const CoursePage = () => {
   }, [data]);
 
   // Extract briefing thumbnail from API data
-  const briefingThumbnail =
-    data?.briefing?.[0]?.thumbnail ||
-    data?.briefing?.[0]?.translations?.[lang]?.content?.thumbnail ||
-    null;
+  const briefingThumbnail = data?.briefing?.[0]?.thumbnail || data?.briefing?.[0]?.translations?.[lang]?.content?.thumbnail || null;
 
   return (
     <div>
       <SiteHeader title={data?.title || ""} subtitle={data?.[lang]?.term || ""} />
-   
+
       <SessionCards
         title="Sessions"
         content={
@@ -86,7 +83,7 @@ const CoursePage = () => {
             ? Object.values(data.children)
                 .map((child) => {
                   const translation = child.translations?.[lang]?.content;
-                  return { ...translation, ...{ titleimage: child?.titleimage	, id: child.slug } } || child.content || {};
+                  return { ...translation, ...{ titleimage: child?.titleimage, id: child.slug } } || child.content || {};
                 })
                 .sort((a, b) => {
                   const kwA = parseInt(a.kw) || 0;
@@ -98,27 +95,25 @@ const CoursePage = () => {
       />
 
       <section className="grid grid-cols-1 md:grid-cols-10 gap-12 mt-12 w-full  md:max-h-[80vh]">
-        <div className="md:col-span-3 flex flex-col h-full">
-          <div className="mb-3 font-semibold  flex items-center justify-between">
-            <span>Briefing</span>
-            <button
-              type="button"
-              className="ml-auto flex items-center justify-center h-6"
-              title="Expand Briefing"
-              onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/briefing`)}
-            >
-              <span className="sr-only">Expand Briefing</span>
-              <RiExpandDiagonalLine className="w-5 h-5 text-muted-foreground" />
-            </button>
+        {briefingThumbnail && (
+          <div className="md:col-span-3 flex flex-col h-full">
+            <div className="mb-3 font-semibold  flex items-center justify-between">
+              <span>Briefing</span>
+              <button
+                type="button"
+                className="ml-auto flex items-center justify-center h-6"
+                title="Expand Briefing"
+                onClick={() => router.push(`${router.asPath.replace(/\/$/, "")}/briefing`)}
+              >
+                <span className="sr-only">Expand Briefing</span>
+                <RiExpandDiagonalLine className="w-5 h-5 text-muted-foreground" />
+              </button>
+            </div>
+            <Card className="rounded-xl border border-muted bg-background p-0 md:p-0 flex-1 h-full min-h-0 flex items-stretch justify-stretch overflow-hidden">
+              <img src={briefingThumbnail || "/assets/briefing.png"} alt="Briefing" className="w-full h-full object-cover rounded-xl" />
+            </Card>
           </div>
-          <Card className="rounded-xl border border-muted bg-background p-0 md:p-0 flex-1 h-full min-h-0 flex items-stretch justify-stretch overflow-hidden">
-            <img
-              src={briefingThumbnail || "/assets/briefing.png"}
-              alt="Briefing"
-              className="w-full h-full object-cover rounded-xl"
-            />
-          </Card>
-        </div>
+        )}
         {showDictionary && (
           <div className="md:col-span-5 flex flex-col h-full">
             <div className="mb-3 font-semibold  flex items-center justify-between">
